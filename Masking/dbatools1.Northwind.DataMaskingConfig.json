@@ -1,0 +1,65 @@
+{
+  "Name": "Northwind",
+  "Type": "DataMaskingConfiguration",
+  "Tables": [
+    {
+      "Name": "Customers",
+      "Schema": "dbo",
+      "Columns": [
+        {
+          "Name": "Address",
+          "ColumnType": "nvarchar",
+          "CharacterString": null,
+          "MinValue": 30,
+          "MaxValue": 60,
+          "MaskingType": "Address",
+          "SubType": "StreetAddress",
+          "Format": null,
+          "Separator": null,
+          "Deterministic": false,
+          "Nullable": true,
+          "KeepNull": true,
+          "Composite": null,
+          "Action": null,
+          "StaticValue": null
+        },
+        {
+          "Name": "PostalCode",
+          "ColumnType": "nvarchar",
+          "CharacterString": null,
+          "MinValue": 5,
+          "MaxValue": 10,
+          "MaskingType": "Address",
+          "SubType": "Zipcode",
+          "Format": null,
+          "Separator": null,
+          "Deterministic": false,
+          "Nullable": true,
+          "KeepNull": true,
+          "Composite": null,
+          "Action": null,
+          "StaticValue": null
+        },
+        {
+          "Name": "Phone",
+          "ColumnType": "nvarchar",
+          "CharacterString": null,
+          "MinValue": 12,
+          "MaxValue": 24,
+          "MaskingType": "Phone",
+          "SubType": "PhoneNumber",
+          "Format": null,
+          "Separator": null,
+          "Deterministic": false,
+          "Nullable": true,
+          "KeepNull": true,
+          "Composite": null,
+          "Action": null,
+          "StaticValue": "XXX-XXX"
+        }
+      ],
+      "HasUniqueIndex": true,
+      "FilterQuery": null
+    }
+  ]
+}
