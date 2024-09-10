@@ -2,7 +2,7 @@ if((Get-Module dbatools -ListAvailable).Version.Major -ne 2){
     Update-Module dbatools
 }else{
 }
-
+Set-DbatoolsInsecureConnection
 # Set these defaults for all future sessions on this machine
 Set-DbatoolsConfig -FullName sql.connection.trustcert -Value $true -Register
 Set-DbatoolsConfig -FullName sql.connection.encrypt -Value $false -Register
