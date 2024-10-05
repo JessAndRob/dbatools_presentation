@@ -1,12 +1,12 @@
-<# 
- _____                   _               _____ _     _                 
-/  __ \                 (_)             |_   _| |   (_)                
-| /  \/ ___  _ __  _   _ _ _ __   __ _    | | | |__  _ _ __   __ _ ___ 
+<#
+ _____                   _               _____ _     _
+/  __ \                 (_)             |_   _| |   (_)
+| /  \/ ___  _ __  _   _ _ _ __   __ _    | | | |__  _ _ __   __ _ ___
 | |    / _ \| '_ \| | | | | '_ \ / _` |   | | | '_ \| | '_ \ / _` / __|
 | \__/\ (_) | |_) | |_| | | | | | (_| |   | | | | | | | | | | (_| \__ \
  \____/\___/| .__/ \__, |_|_| |_|\__, |   \_/ |_| |_|_|_| |_|\__, |___/
-            | |     __/ |         __/ |                       __/ |    
-            |_|    |___/         |___/                       |___/     
+            | |     __/ |         __/ |                       __/ |
+            |_|    |___/         |___/                       |___/
 #>
 
 # Copying things is where dbatools made its entry into the world
@@ -111,7 +111,7 @@ Set-DbaDbState -SqlInstance $dbatools1 -ReadWrite -AllDatabases
 
 # Compare the spconfig on two instances with a custom function
 
-Compare-SPConfig -Source $dbatools1 -Destination $dbatools2 
+Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 # Set the backup compression config to true on dbatools1
 
@@ -119,7 +119,7 @@ Set-DbaSpConfigure -SqlInstance $dbatools1 -Name DefaultBackupCompression -Value
 
 # Compare the spconfig on two instances
 
-Compare-SPConfig -Source $dbatools1 -Destination $dbatools2 
+Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 # Copy the spconfigure setting to the other instance
 
@@ -127,7 +127,7 @@ Copy-DbaSpConfigure -Source $dbatools1 -Destination $dbatools2 -ConfigName Defau
 
 # Compare the spconfig on two instances
 
-Compare-SPConfig -Source $dbatools1 -Destination $dbatools2 
+Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 # Lets export the configuration
 
@@ -140,7 +140,7 @@ Set-DbaSpConfigure -SqlInstance $dbatools1 -Name DefaultBackupCompression -Value
 
 # Compare the spconfig on two instances
 
-Compare-SPConfig -Source $dbatools1 -Destination $dbatools2 
+Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 # now we can import from file
 
@@ -148,21 +148,40 @@ Import-DbaSpConfigure -Path $export.FullName -SqlInstance $dbatools1
 
 # Compare the spconfig on two instances
 
-Compare-SPConfig -Source $dbatools1 -Destination $dbatools2 
+Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 
 # Now what else can we copy ....................................
 
-Write-Output $allofTheThings
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+## ALL OF THE THINGS
 
 Find-DbaCommand -Pattern Copy | ocgv
 
 Get-DbaLogin -SqlInstance $dbatools1,$dbatools2|Format-Table
 
 Get-DbaAgentJob  -SqlInstance $dbatools1,$dbatools2|Format-Table
-
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index

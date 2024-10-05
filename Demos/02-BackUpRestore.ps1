@@ -399,7 +399,5 @@ Invoke-DbaQuery -SqlInstance $dbatools1 -Database pubs -Query $Query
 
 Get-Help Invoke-DbaAdvancedRestore
 
-# Choose your adventure
-Get-GameTimeRemaining
-
+Remove-Module dbatools -Force
 Get-Index

@@ -1,9 +1,9 @@
 
-<# 
+<#
 
- _____      _                 _            _   _               _____           _ _           _              _     
-|_   _|    | |               | |          | | (_)             |_   _|         | | |         | |            | |    
-  | | _ __ | |_ _ __ ___   __| |_   _  ___| |_ _  ___  _ __     | | ___     __| | |__   __ _| |_ ___   ___ | |___ 
+ _____      _                 _            _   _               _____           _ _           _              _
+|_   _|    | |               | |          | | (_)             |_   _|         | | |         | |            | |
+  | | _ __ | |_ _ __ ___   __| |_   _  ___| |_ _  ___  _ __     | | ___     __| | |__   __ _| |_ ___   ___ | |___
   | || '_ \| __| '__/ _ \ / _` | | | |/ __| __| |/ _ \| '_ \    | |/ _ \   / _` | '_ \ / _` | __/ _ \ / _ \| / __|
  _| || | | | |_| | | (_) | (_| | |_| | (__| |_| | (_) | | | |   | | (_) | | (_| | |_) | (_| | || (_) | (_) | \__ \
  \___/_| |_|\__|_|  \___/ \__,_|\__,_|\___|\__|_|\___/|_| |_|   \_/\___/   \__,_|_.__/ \__,_|\__\___/ \___/|_|___/
@@ -18,7 +18,7 @@ Return 'Oi Beardy, You may be an MVP but this is a demo, don''t run the whole th
 
 
 ## Lets look at the commands
-Get-Command -Module dbatools 
+Get-Command -Module dbatools
 
 ## How many commands?
 (Get-Command -Module dbatools).Count
@@ -28,7 +28,7 @@ Find-DbaCommand -Tag Backup
 Find-DbaCommand -Tag Restore
 Find-DbaCommand -Tag Migration
 Find-DbaCommand -Tag Agent
-Find-DbaCommand -Pattern User 
+Find-DbaCommand -Pattern User
 Find-DbaCommand -Pattern linked
 
 ## How do we use commands?
@@ -40,10 +40,10 @@ Get-Help Test-DbaLinkedServerConnection -Full
 
 ## Here a neat trick - works on Windows PowerShell
 
-Find-DbaCommand -Pattern role | Out-GridView -PassThru | Get-Help -Full 
+Find-DbaCommand -Pattern role | Out-GridView -PassThru | Get-Help -Full
 
 # or we use Microsoft.PowerShell.ConsoleGuiTools for this in Powershell 7
-Get-Help (Find-DbaCommand -Pattern role |Select CommandName, Synopsis | Out-ConsoleGridView).CommandName 
+Get-Help (Find-DbaCommand -Pattern role |Select CommandName, Synopsis | Out-ConsoleGridView -OutputMode Single).CommandName
 
 # Lets take a look at some things
 
@@ -64,19 +64,16 @@ Get-DbaLogin -SqlInstance $dbatools1, $dbatools2 |Format-Table
 
 # We can pipe commands together
 
-Get-DbaDatabase -SqlInstance $dbatools1,$dbatools2 -ExcludeSystem | Get-DbaDbFile 
+Get-DbaDatabase -SqlInstance $dbatools1,$dbatools2 -ExcludeSystem | Get-DbaDbFile
 
 # What else would you like to look at on an instance ?
 
-# 
+#
 
-$builds = Get-DbaBuildReference -SqlInstance $SQLInstances 
+$builds = Get-DbaBuildReference -SqlInstance $SQLInstances
 
 $Builds | Format-Table
 
 Get-DbaBuildReference -Build 10.0.6000,10.50.6000 |Format-Table
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index

@@ -1,13 +1,13 @@
 <#
-  _____                       _           _       
- /  ___|                     | |         | |      
- \ `--. _ __   __ _ _ __  ___| |__   ___ | |_ ___ 
+  _____                       _           _
+ /  ___|                     | |         | |
+ \ `--. _ __   __ _ _ __  ___| |__   ___ | |_ ___
   `--. \ '_ \ / _` | '_ \/ __| '_ \ / _ \| __/ __|
  /\__/ / | | | (_| | |_) \__ \ | | | (_) | |_\__ \
  \____/|_| |_|\__,_| .__/|___/_| |_|\___/ \__|___/
-                   | |                            
-                   |_|                            
-#> 
+                   | |
+                   |_|
+#>
 
 cls
 
@@ -28,10 +28,10 @@ Get-DbaDbSnapshot @snapshotSplat
 # Some data about our employees
 Invoke-DbaQuery @snapshotSplat -Query 'SELECT [EmployeeID],[LastName],[FirstName],[HomePhone] FROM [dbo].[Employees]'
 
-# Jut need to update a phone number... 
+# Jut need to update a phone number...
 Invoke-DbaQuery @snapshotSplat -Query "UPDATE [Northwind].[dbo].[Employees] SET [HomePhone] = '(330)-329-6691'"
 
-# Uhoh 
+# Uhoh
 Invoke-DbaQuery @snapshotSplat -Query 'SELECT [EmployeeID],[LastName],[FirstName],[HomePhone] FROM [dbo].[Employees]'
 
 # The good data is still there in our snapshot
@@ -49,21 +49,21 @@ Invoke-DbaQuery @snapshotSplat -Query 'SELECT [EmployeeID],[LastName],[FirstName
 
 # what if we only want to fix the data we broke?
 
-# Jut need to update a phone number...forgot the where clause again!?! 
+# Jut need to update a phone number...forgot the where clause again!?!
 Invoke-DbaQuery @snapshotSplat -Query "UPDATE [Northwind].[dbo].[Employees] SET [HomePhone] = '(330)-329-6691'"
 
-# Uhoh 
+# Uhoh
 Invoke-DbaQuery @snapshotSplat -Query 'SELECT [EmployeeID],[LastName],[FirstName],[HomePhone] FROM [dbo].[Employees]'
 
 # Let's just truncate the Employees table and copy the data back in from the snapshot
 Copy-DbaDbTableData -SqlInstance $dbatools1 -Destination $dbatools1 -Database $northwindSnap.Name -DestinationDatabase Northwind -Table Employees -Truncate
 
-# Can't because of the foreign keys, Script out the foreign keys so you can drop, reload, recreate 
+# Can't because of the foreign keys, Script out the foreign keys so you can drop, reload, recreate
 
 if(-not (Test-Path /workspace/Export)){
     New-Item /workspace/Export -ItemType Directory
 }
-$fks = Get-DbaDbForeignKey -SqlInstance $dbatools1 -Database Northwind | Where-Object ReferencedTable -eq Employees 
+$fks = Get-DbaDbForeignKey -SqlInstance $dbatools1 -Database Northwind | Where-Object ReferencedTable -eq Employees
 $fks | Select-Object SqlInstance,Database,Table, Name, ReferencedKey, ReferencedTable | Format-Table
 $fks | Export-DbaScript -FilePath /workspace/Export/ForeignKeys.sql -OutVariable FKScriptFile
 
@@ -84,8 +84,5 @@ Get-DbaDbForeignKey -SqlInstance $dbatools1 -Database Northwind | Where-Object R
 
 # clean up snapshot
 Get-DbaDbSnapshot @snapshotSplat | Remove-DbaDbSnapshot -Confirm:$false
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index
