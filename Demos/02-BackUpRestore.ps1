@@ -1,12 +1,12 @@
-<# 
-______            _                                  _  ______          _                 
-| ___ \          | |                                | | | ___ \        | |                
-| |_/ / __ _  ___| | ___   _ _ __     __ _ _ __   __| | | |_/ /___  ___| |_ ___  _ __ ___ 
+<#
+______            _                                  _  ______          _
+| ___ \          | |                                | | | ___ \        | |
+| |_/ / __ _  ___| | ___   _ _ __     __ _ _ __   __| | | |_/ /___  ___| |_ ___  _ __ ___
 | ___ \/ _` |/ __| |/ / | | | '_ \   / _` | '_ \ / _` | |    // _ \/ __| __/ _ \| '__/ _ \
 | |_/ / (_| | (__|   <| |_| | |_) | | (_| | | | | (_| | | |\ \  __/\__ \ || (_) | | |  __/
 \____/ \__,_|\___|_|\_\\__,_| .__/   \__,_|_| |_|\__,_| \_| \_\___||___/\__\___/|_|  \___|
-                            | |                                                           
-                            |_|                                                           
+                            | |
+                            |_|
 #>
 
 cls
@@ -15,7 +15,7 @@ cls
 
 Get-DbaDatabase -SqlInstance $dbatools1
 
-# we can get particular properties 
+# we can get particular properties
 
 Get-DbaDatabase -SqlInstance $dbatools1 | Select Name, Status, LastFullBackup
 
@@ -48,17 +48,17 @@ ls /var/opt/mssql/data/backups/firstbackup
 
 ls -l -R /var/opt/mssql/data
 
-# now if we check the user databases last backup time 
+# now if we check the user databases last backup time
 
 Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem | Select Name, Status, LastFullBackup | Format-Table
 
 # or we could use
 
-Get-DbaLastBackup -SqlInstance $dbatools1 
+Get-DbaLastBackup -SqlInstance $dbatools1
 
 # What was that Warning?
 
-# or 
+# or
 
 Get-DbaDbBackupHistory -SqlInstance $dbatools1
 
@@ -68,7 +68,7 @@ Backup-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dba
 
 # Lets check the file system from the viewpoint of the SQL Instance Service Account again
 
-Get-DbaFile -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1 
+Get-DbaFile -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1
 
 ls -l /var/opt/mssql/data/backups/dbatools1
 
@@ -96,7 +96,7 @@ Get-DbaDatabase -SqlInstance $dbatools1 | Format-Table
 # Can you restore all the databases please
 # One line of code - 10 seconds in browser
 
-Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1 
+Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1
 
 # what were those warnings??????
 
@@ -106,22 +106,22 @@ Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/db
     $securePassword = ('dbatools.IO' | ConvertTo-SecureString -asPlainText -Force)
     $continercredential = New-Object System.Management.Automation.PSCredential('sqladmin', $securePassword)
     $dbname = 'pubs-{0}' -f $psitem
-    Restore-DbaDatabase -SqlInstance $using:dbatools1 -SqlCredential $continercredential -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName $dbname -DestinationFilePrefix $psitem -ReplaceDbNameInFile 
-} 
+    Restore-DbaDatabase -SqlInstance $using:dbatools1 -SqlCredential $continercredential -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName $dbname -DestinationFilePrefix $psitem -ReplaceDbNameInFile
+}
 
-<# 
+<#
 If we were not in PowerShell Core we could do this
 
 0..10 | ForEach-Object {
     $dbname = 'pubs-{0}' -f $psitem
-    Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName $dbname -DestinationFilePrefix $psitem -ReplaceDbNameInFile 
+    Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName $dbname -DestinationFilePrefix $psitem -ReplaceDbNameInFile
 }
 #>
 
 # Super super easy - it will even do this, when the files are more complicated
 
 # lets get all of our databases now
-$databases = Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem 
+$databases = Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem
 
 $databases | Select Name
 
@@ -139,7 +139,7 @@ Backup-DbaDatabase -SqlInstance $dbatools1 -Path $RandomPath -CompressBackup -Da
     Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type $type
 }
 
-<# 
+<#
 #Windows PowerShell Version
 # 15 secs - Robs desktop 33 seconds browser
 $x = 50
@@ -147,7 +147,7 @@ while ($x -ge 0) {
     $db = Get-Random $databases.Name
     $type = Get-Random 'Full','Diff','Log'
     Backup-DbaDatabase -SqlInstance $dbatools1 -Database $db -Path $RandomPath -CompressBackup -Type $type
-    $x --    
+    $x --
 }
 #>
 
@@ -176,7 +176,7 @@ ls -l $RandomPath
 
 # ok lets backup with create folder and get some more files to play with 9 seconds - Robs desktop 56 seconds browser
 
-$databases = Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem 
+$databases = Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem
 
 $databases.Name
 
@@ -188,23 +188,23 @@ $databases.Name
     Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type $type -CreateFolder
 
     if ($_ % 10 -eq 0) {
-        $BackupName = "{0}_{1}_TestForJA_DoNotDELETE.bak" -f $db, $_
-        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CreateFolder -CopyOnly -FilePath  $BackupName 
-        Write-Output "I did a special backup $BackupName"
+        $BackupName = "{0}_{1}_TestForBW_DoNotDELETE.bak" -f $db, $_
+        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CreateFolder -CopyOnly -FilePath  $BackupName
+        Write-Output "I did a special backup $BackupName for Ben"
     }
     if ($_ % 15 -eq 0) {
         $BackupName = "{0}_{1}_ForUpgrade.bak" -f $db, $_
-        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CreateFolder -CopyOnly -FilePath  $BackupName 
+        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CreateFolder -CopyOnly -FilePath  $BackupName
         Write-Output "I did a special backup $BackupName"
     }
     if ($_ % 20 -eq 0) {
         $BackupName = "{0}_TestingCode_.bak" -f $_
-        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CopyOnly -FilePath  $BackupName 
+        Backup-DbaDatabase -SqlInstance $Using:dbatools1 -SqlCredential $continercredential -Database $db -Path $Using:RandomPath -CompressBackup -Type Full -CopyOnly -FilePath  $BackupName
         Write-Output "I did a special backup $BackupName"
     }
 }
 
-<# 
+<#
 #Windows PowerShell Version
 #- 32 secs - Robs desktop 1 minute 10 in the browser
 $x = 100
@@ -212,7 +212,7 @@ while ($x -ge 0) {
     $db = Get-Random $databases.Name
     $type = Get-Random 'Full','Diff','Log'
     Backup-DbaDatabase -SqlInstance $dbatools1 -Database $db -Path $RandomPath -CompressBackup -Type $type -CreateFolder
-    $x --    
+    $x --
 }
 #>
 
@@ -226,11 +226,14 @@ Get-ChildItem $RandomPath -Recurse
 
 (Get-ChildItem $RandomPath -Recurse).count
 
-<# 
+<#
 # run this in Windows Terminal to see the windows explorer view
 
-explorer \\wsl.localhost\docker-desktop-data\version-pack-data\community\docker\volumes\bitsdbatools_devcontainer_mydata\_data\dbatools1
+explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
 
+then find this path (diff guid obvs)
+
+a29b3685ce573c548b6d202e22a6e52b4158c2c75c973062a547aaeb5e3f17cb\diff\var\opt\mssql\data\backups\dbatools1
 #>
 
 # Remove the databases - no confirm this time
@@ -249,7 +252,7 @@ Get-DbaDbRestoreHistory -SqlInstance $dbatools1 | Format-Table
 
 Get-DbaDbRestoreHistory -SqlInstance $dbatools1 | Sort-Object Date | Format-Table
 
-# So we can take backups, we can perform restores but 
+# So we can take backups, we can perform restores but
 
 # we don't know if the backups are valid until we have tested them
 
@@ -288,7 +291,7 @@ Invoke-DbaQuery -SqlInstance $dbatools1 -Database pubs -Query $Query
 
 
 
-# So the databases were backed up to a place that was not available to the second instance. 
+# So the databases were backed up to a place that was not available to the second instance.
 # Lets make it work so you can see, but this is something you will need to consider.
 
 Backup-DbaDatabase -SqlInstance $dbatools1 -Path /shared/BackupTest
@@ -302,7 +305,7 @@ Test-DbaLastBackup -SqlInstance $dbatools1 -Destination $dbatools2 | Write-DbaDa
 
 # First lets create a database to corrupt
 
-Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName corruptme -DestinationFilePrefix corrupt -ReplaceDbNameInFile 
+Restore-DbaDatabase -SqlInstance $dbatools1 -Path /var/opt/mssql/data/backups/dbatools1/pubs -DatabaseName corruptme -DestinationFilePrefix corrupt -ReplaceDbNameInFile
 
 # Lets find the page of a Clustered index to break
 
@@ -310,7 +313,7 @@ $Page = (Invoke-DbaQuery -SqlInstance $dbatools1 -Query "DBCC IND(corruptme,'aut
 
 # Lets turn on DBCC TRACEON -- 3604 turn on the DBCC output for commands like DBCC page
 
-Enable-DbaTraceFlag -SqlInstance $dbatools1 -TraceFlag 3604 
+Enable-DbaTraceFlag -SqlInstance $dbatools1 -TraceFlag 3604
 
 # I'm going to make a guess at 128 as the location as that has worked
 
@@ -360,6 +363,10 @@ Invoke-DbaQuery -SqlInstance $dbatools1 -Query "DBCC CheckDB();" -Database corru
 # SO we have a corrupt database, but we have not noticed and have backed it up
 
 Backup-DbaDatabase -SqlInstance $dbatools1 -Database corruptme -Path /shared/BackupTest
+
+#hopefully temp until the PR is through
+
+. /workspace/Demos/function_Start-DbccCheck.ps1
 
 Test-DbaLastBackup -SqlInstance $dbatools1 -Destination $dbatools2 | Write-DbaDataTable -SqlInstance $dbatools1 -Database pubs -Table BackupTests -AutoCreateTable
 
