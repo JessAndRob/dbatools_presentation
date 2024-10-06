@@ -24,7 +24,7 @@ RUN echo "export HISTFILE=/commandhistory/.bash_history" >> "/root/.bashrc" \
 
 # Install Pester, 4.10.1
 SHELL ["/usr/bin/pwsh", "-c"]
-RUN $ErrorActionPreference='Stop'; Install-Module -Name Pester -Force -SkipPublisherCheck -MaximumVersion 4.10.1;
+RUN $ErrorActionPreference='Stop';Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name Pester -Force -SkipPublisherCheck -MaximumVersion 4.10.1;
 
 # Install dbatools,PSFramework,dbachecks,posh-git,ImportExcel, Pansies
 SHELL ["/usr/bin/pwsh", "-c"]

@@ -1,21 +1,21 @@
 <#
-  _____ _            _____ _                            __           _                 _       
- |_   _| |          /  ___| |                          / _|         | |               (_)      
-   | | | |__   ___  \ `--.| |_ ___  _ __ _   _    ___ | |_    __ _  | |     ___   __ _ _ _ __  
-   | | | '_ \ / _ \  `--. \ __/ _ \| '__| | | |  / _ \|  _|  / _` | | |    / _ \ / _` | | '_ \ 
+  _____ _            _____ _                            __           _                 _
+ |_   _| |          /  ___| |                          / _|         | |               (_)
+   | | | |__   ___  \ `--.| |_ ___  _ __ _   _    ___ | |_    __ _  | |     ___   __ _ _ _ __
+   | | | '_ \ / _ \  `--. \ __/ _ \| '__| | | |  / _ \|  _|  / _` | | |    / _ \ / _` | | '_ \
    | | | | | |  __/ /\__/ / || (_) | |  | |_| | | (_) | |   | (_| | | |___| (_) | (_| | | | | |
    \_/ |_| |_|\___| \____/ \__\___/|_|   \__, |  \___/|_|    \__,_| \_____/\___/ \__, |_|_| |_|
-                                          __/ |                                   __/ |        
-                                         |___/                                   |___/         
+                                          __/ |                                   __/ |
+                                         |___/                                   |___/
 #>
 # The story of a login
 
 cls
 
-#region set up 
+#region set up
 
 if (-not (Get-DbaDatabase -SqlInstance $dbatools1 -Database SockFactoryApp)) {
-    New-DbaDatabase -SqlInstance $dbatools1 -Name SockFactoryApp 
+    New-DbaDatabase -SqlInstance $dbatools1 -Name SockFactoryApp
 }
 
 $Password = ConvertTo-SecureString SockFactoryApp_User -AsPlainText -Force
@@ -24,7 +24,7 @@ New-DbaDbUser -SqlInstance $dbatools1 -Database SockFactoryApp -Login SockFactor
 Remove-DbaLogin -SqlInstance $dbatools1 -Login SockFactoryApp_User -Force   | Out-Null
 
 $Global:PSDefaultParameterValues.CLear()
-$sqladminPassword = ConvertTo-SecureString 'dbatools.IO' -AsPlainText -Force 
+$sqladminPassword = ConvertTo-SecureString 'dbatools.IO' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ('SockFactory_App', $sqladminpassword)
 Invoke-DbaQuery -SqlInstance $dbatools1 -SqlCredential $cred -Query "SELECT @@SERVER" -WarningAction SilentlyContinue
 Invoke-DbaQuery -SqlInstance $dbatools1 -SqlCredential $cred -Query "SELECT @@SERVER" -WarningAction SilentlyContinue
@@ -45,32 +45,32 @@ Write-Output "Setup finished"
 # 3am Tuesday Morning
 Write-Output $Italwaysis
 # You receive a call out because the Sock Factory has shut down and
-# 
+#
 # It's the database's fault
 # The connection is failing
-# 
+#
 # Amongst your troubleshooting steps (perhaps they could/should be in a notebook so the results get saved?) You look in the error log for failed logins
-# 
-# You can do this with dbatools (on windows)
+#
+# You can do this with dbatools
 
-Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | Select LogDate, Source, Text  
+Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | Select LogDate, Source, Text
 
-# but we are in a container so we use our T-SQL Knowledge and
+# but we can also use our T-SQL Knowledge and
 
 Invoke-DbaQuery -SqlInstance $dbatools1 -Database master -Query "EXEC sp_readerrorlog"
 
 # No login? Interesting.
-# 
+#
 # Then you remember a new replica was added to the Availability Group at the weekend.
-# 
+#
 # Maybe the DBA did not add the logins correctly
-# 
+#
 # You need to check for the login
 
 Get-DbaLogin -SqlInstance $dbatools1 -Login SockFactoryApp_User
 
 # No response means no login :-(
-# 
+#
 # It's ok, just create a new login using the password from the secure password vault
 
 $Password = ConvertTo-SecureString SockFactoryApp_User -AsPlainText -Force
@@ -81,7 +81,7 @@ New-DbaLogin -SqlInstance $dbatools1 -Login SockFactoryApp_User -SecurePassword 
 #region email back
 Write-Output "Email - Subject - No Worries the Beard Fixed it"
 $Global:PSDefaultParameterValues.CLear()
-$sqladminPassword = ConvertTo-SecureString 'SockFactoryApp_User' -AsPlainText -Force 
+$sqladminPassword = ConvertTo-SecureString 'SockFactoryApp_User' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ('SockFactoryApp_User', $sqladminpassword)
 Invoke-DbaQuery -SqlInstance $dbatools1 -SqlCredential $cred -Database SockFactoryApp -Query "PRINT 'All is Well'" -WarningAction SilentlyContinue
 Invoke-DbaQuery -SqlInstance $dbatools1 -SqlCredential $cred -Database SockFactoryApp -Query "PRINT 'All is Well'" -WarningAction SilentlyContinue
@@ -110,16 +110,16 @@ Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | Select LogDate, Source, T
 Invoke-DbaQuery -SqlInstance $dbatools1 -Database master -Query "EXEC sp_readerrorlog" | Where ProcessInfo -eq 'Logon'
 
 # Hmmm
-# 
+#
 # Failed to open the explicitly specified database 'SockFactoryApp'
-# 
+#
 # Does the user exist?
 
 Get-DbaDbUser -SqlInstance $dbatools1 -Database SockFactoryApp -ExcludeSystemUser
 
 # So the user exists but we can't login
 
-# Whats going on ? 
+# Whats going on ?
 
 # Pop quiz ..............
 
@@ -218,7 +218,7 @@ Repair-DbaDbOrphanUser -SqlInstance $dbatools1
 
 $Global:PSDefaultParameterValues.CLear()
 
-$sqladminPassword = ConvertTo-SecureString 'SockFactoryApp_User' -AsPlainText -Force 
+$sqladminPassword = ConvertTo-SecureString 'SockFactoryApp_User' -AsPlainText -Force
 $cred = New-Object System.Management.Automation.PSCredential ('SockFactoryApp_User', $sqladminpassword)
 Invoke-DbaQuery -SqlInstance $dbatools1 -SqlCredential $cred -Database SockFactoryApp -Query "SELECT SUSER_SNAME() + ' Is my Name' as 'Everything is Fine'" -WarningAction SilentlyContinue
 
@@ -256,7 +256,7 @@ if ((Get-PsRepository -Name PSGallery).InstallationPolicy -ne 'Trusted') {
         Import-PackageProvider NuGet -Force
         Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
     }
-    
+
 }
 else {
     Write-Output "The PowerShell Gallery is trusted I will continue"
@@ -285,19 +285,19 @@ Write-Output "    FileName is $ExcelFile"
 $WorkSheetName = "Permissions"
 
 $excel = Get-DbaUserPermission -SqlInstance $sqlinstance | Export-Excel -Path $ExcelFile -WorksheetName $WorkSheetName -AutoSize -FreezeTopRow -AutoFilter -PassThru
-  
+
 $rulesparam = @{
     Address   = $excel.Workbook.Worksheets[$WorkSheetName].Dimension.Address
-    WorkSheet = $excel.Workbook.Worksheets[$WorkSheetName] 
-    RuleType  = 'Expression'      
+    WorkSheet = $excel.Workbook.Worksheets[$WorkSheetName]
+    RuleType  = 'Expression'
 }
 
 Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("sysadmin",$G1)))' -BackgroundColor Yellow -StopIfTrue
 Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("db_owner",$G1)))' -BackgroundColor Yellow -StopIfTrue
-Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("SERVER LOGINS",$E1)))' -BackgroundColor PaleGreen 
-Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("SERVER SECURABLES",$E1)))' -BackgroundColor PowderBlue 
-Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("DB ROLE MEMBERS",$E1)))' -BackgroundColor GoldenRod 
-Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("DB SECURABLES",$E1)))' -BackgroundColor BurlyWood 
+Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("SERVER LOGINS",$E1)))' -BackgroundColor PaleGreen
+Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("SERVER SECURABLES",$E1)))' -BackgroundColor PowderBlue
+Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("DB ROLE MEMBERS",$E1)))' -BackgroundColor GoldenRod
+Add-ConditionalFormatting @rulesparam -ConditionValue 'NOT(ISERROR(FIND("DB SECURABLES",$E1)))' -BackgroundColor BurlyWood
 
 Close-ExcelPackage $excel
 
@@ -314,7 +314,7 @@ $TitleSheet.Cells["A1"].value = "This Worksheet shows the User Permissions for e
 Set-ExcelRange -Worksheet $TitleSheet -Range "A:1" -Bold -FontSize 22 -Underline -UnderLineType Double
 
 $TitleSheet.Cells["B3"].Value = "The Cells are colour coded as follows :-"
-Set-ExcelRange -Worksheet $TitleSheet -Range "B3" -Bold -FontSize 18 
+Set-ExcelRange -Worksheet $TitleSheet -Range "B3" -Bold -FontSize 18
 $TitleSheet.Cells["E5"].Value = "The Yellow Cells show members of the sysadmin role who have permission to do and access anything on the instance "
 $TitleSheet.Cells["E6"].Value = "The Green Cells show the logins on the server"
 $TitleSheet.Cells["E7"].Value = "The Blue Cells show the instance level permissions that have been granted to the logins"
@@ -329,9 +329,9 @@ Set-ExcelRange -Worksheet $TitleSheet -Range "C12" -FontSize 18
 
 Set-ExcelRange -Worksheet $TitleSheet -Range  "C5" -BackgroundColor Yellow
 Set-ExcelRange -Worksheet $TitleSheet -Range  "C6" -BackgroundColor PaleGreen
-Set-ExcelRange -Worksheet $TitleSheet -Range  "C7" -BackgroundColor PowderBlue 
-Set-ExcelRange -Worksheet $TitleSheet -Range  "C8" -BackgroundColor GoldenRod 
-Set-ExcelRange -Worksheet $TitleSheet -Range  "C9" -BackgroundColor BurlyWood 
+Set-ExcelRange -Worksheet $TitleSheet -Range  "C7" -BackgroundColor PowderBlue
+Set-ExcelRange -Worksheet $TitleSheet -Range  "C8" -BackgroundColor GoldenRod
+Set-ExcelRange -Worksheet $TitleSheet -Range  "C9" -BackgroundColor BurlyWood
 
 Close-ExcelPackage $excel
 

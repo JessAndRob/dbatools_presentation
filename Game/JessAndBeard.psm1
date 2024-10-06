@@ -359,7 +359,7 @@ function Assert-Correct {
       Invoke-DbcCheck -SqlCredential $continercredential -Check DatabaseExists
 
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false  # reset
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
     }
     'Intro' {
       # Valid estate is as we expect
@@ -384,7 +384,7 @@ function Assert-Correct {
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
 
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false  # reset
     }
     'Backup' {
@@ -409,7 +409,7 @@ function Assert-Correct {
 
       $results = @($check1, $check2)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false # reset
 
     }
@@ -457,7 +457,7 @@ function Assert-Correct {
       $check1 | Convert-DbcResult -Label SnapShots -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
       $results = @($check1, $check2)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false # reset
     }
     'Export' {
@@ -481,7 +481,7 @@ function Assert-Correct {
       $check3 | Convert-DbcResult -Label Export -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
     }
     'Ags' {
@@ -534,7 +534,7 @@ function Assert-Correct {
 
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
     }
     'Found' {
@@ -561,7 +561,7 @@ function Assert-Correct {
 
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
     }
     'Masking' {
@@ -588,7 +588,7 @@ function Assert-Correct {
 
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
     }
     'Logins' {
@@ -615,7 +615,7 @@ function Assert-Correct {
 
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
     }
     Default {
@@ -637,7 +637,7 @@ function Assert-Correct {
       $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check DatabaseExists -Show Summary -PassThru
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
-      Write-PSFHostColor -String "All is fine - Please continue" -DefaultColor Blue
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
     }
   }
   $Global:PSDefaultParameterValues = @{
