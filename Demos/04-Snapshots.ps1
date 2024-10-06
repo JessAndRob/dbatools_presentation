@@ -63,11 +63,12 @@ Copy-DbaDbTableData -SqlInstance $dbatools1 -Destination $dbatools1 -Database $n
 if(-not (Test-Path /workspace/Export)){
     New-Item /workspace/Export -ItemType Directory
 }
+$fkPath = '/workspace/Export/ForeignKeys.sql'
 $fks = Get-DbaDbForeignKey -SqlInstance $dbatools1 -Database Northwind | Where-Object ReferencedTable -eq Employees
 $fks | Select-Object SqlInstance,Database,Table, Name, ReferencedKey, ReferencedTable | Format-Table
-$fks | Export-DbaScript -FilePath /workspace/Export/ForeignKeys.sql -OutVariable FKScriptFile
+$fks | Export-DbaScript -FilePath $fkPath
 
-code $FKScriptFile.FullName
+code $fkPath
 
 # drop the foreign keys
 $fks.drop()
@@ -76,7 +77,7 @@ $fks.drop()
 Copy-DbaDbTableData -SqlInstance $dbatools1 -Destination $dbatools1 -Database $northwindSnap.Name -DestinationDatabase Northwind -Table Employees -Truncate
 
 # run the script to re-create foreign keys
-Invoke-DbaQuery -SqlInstance $dbatools1 -Database Northwind -File $FKScriptFile.FullName
+Invoke-DbaQuery -SqlInstance $dbatools1 -Database Northwind -File $fkPath
 
 # Check the data and the FKs
 Invoke-DbaQuery @snapshotSplat -Query 'SELECT [EmployeeID],[LastName],[FirstName],[HomePhone] FROM [dbo].[Employees]'
