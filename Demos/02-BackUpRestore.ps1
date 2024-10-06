@@ -17,7 +17,7 @@ Get-DbaDatabase -SqlInstance $dbatools1
 
 # we can get particular properties
 
-Get-DbaDatabase -SqlInstance $dbatools1 | Select Name, Status, LastFullBackup
+Get-DbaDatabase -SqlInstance $dbatools1 | Select-Object Name, Status, LastFullBackup
 
 # Added PowerShell bonus, you can see which properties you can 'select' (The columns on a table) with Get-Member
 
@@ -50,7 +50,9 @@ ls -l -R /var/opt/mssql/data
 
 # now if we check the user databases last backup time
 
-Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem | Select Name, Status, LastFullBackup | Format-Table
+Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem | 
+Select-Object Name, Status, LastFullBackup | 
+Format-Table
 
 # or we could use
 
@@ -123,7 +125,7 @@ If we were not in PowerShell Core we could do this
 # lets get all of our databases now
 $databases = Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem
 
-$databases | Select Name
+$databases | Select-Object Name
 
 # define a path and do a full backup for each 11 seconds browser
 $RandomPath = '/var/opt/backups/dbatools1/random'
@@ -229,7 +231,8 @@ Get-ChildItem $RandomPath -Recurse
 <#
 # run this in Windows Terminal to see the windows explorer view
 
-explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
+#TODO: this didn't work for Jess (don't have the docker-desktop-data folder)
+explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\ 
 
 then find this path (diff guid obvs)
 
@@ -349,7 +352,7 @@ Enable-DbaTraceFlag -SqlInstance $dbatools1 -TraceFlag 3604
 
 
 
-# YOu have to choose to run this by uncommenting or selecting
+# You have to choose to run this by uncommenting or selecting
 
 
 
@@ -400,4 +403,6 @@ Invoke-DbaQuery -SqlInstance $dbatools1 -Database pubs -Query $Query
 Get-Help Invoke-DbaAdvancedRestore
 
 Remove-Module dbatools -Force
+
+#TODO: do we want to remove the extra dbs created here? at least CorruptMe?
 Get-Index

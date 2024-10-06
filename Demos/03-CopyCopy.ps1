@@ -72,7 +72,7 @@ Get-DbaDatabase -SqlInstance $dbatools1, $dbatools2 -ExcludeSystem | Format-Tabl
 
 
 
-# NO NO NO NO - NOt offline - I meant ReadOnly
+# NO NO NO NO - Not offline - I meant ReadOnly
 
 
 
@@ -95,7 +95,8 @@ Copy-DbaDatabase -Source $dbatools1 -Destination $dbatools2 -BackupRestore -Shar
 
 # What do we have now ?
 
-Get-DbaDatabase -SqlInstance $dbatools1, $dbatools2 -ExcludeSystem | Select ComputerName, Name, Status, ReadOnly
+Get-DbaDatabase -SqlInstance $dbatools1, $dbatools2 -ExcludeSystem |
+Select-Object ComputerName, Name, Status, ReadOnly
 
 Get-DbaDbState  -SqlInstance $dbatools1, $dbatools2 | Format-Table
 
