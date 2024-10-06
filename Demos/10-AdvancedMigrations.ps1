@@ -1,18 +1,18 @@
 <#
-  ___      _                               _  ___  ____                 _   _                 
-  / _ \    | |                             | | |  \/  (_)               | | (_)                
-  / /_\ \ __| |_   ____ _ _ __   ___ ___  __| | | .  . |_  __ _ _ __ __ _| |_ _  ___  _ __  ___ 
+  ___      _                               _  ___  ____                 _   _
+  / _ \    | |                             | | |  \/  (_)               | | (_)
+  / /_\ \ __| |_   ____ _ _ __   ___ ___  __| | | .  . |_  __ _ _ __ __ _| |_ _  ___  _ __  ___
   |  _  |/ _` \ \ / / _` | '_ \ / __/ _ \/ _` | | |\/| | |/ _` | '__/ _` | __| |/ _ \| '_ \/ __|
   | | | | (_| |\ V / (_| | | | | (_|  __/ (_| | | |  | | | (_| | | | (_| | |_| | (_) | | | \__ \
   \_| |_/\__,_| \_/ \__,_|_| |_|\___\___|\__,_| \_|  |_/_|\__, |_|  \__,_|\__|_|\___/|_| |_|___/
-                                                          __/ |                                
-                                                         |___/                                 
+                                                          __/ |
+                                                         |___/
 #>
 
 cls
 
 # Now we can show some of the other destructive commands :-)
-$Databases = Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem 
+$Databases = Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem
 
 Remove-DbaAgDatabase -SqlInstance $dbatools1 -AvailabilityGroup $AgNAme -Database $Databases.Name -WhatIf
 
@@ -24,34 +24,34 @@ Remove-DbaAgReplica -SqlInstance $dbatools1 -AvailabilityGroup $AgNAme -Replica 
 
 Remove-DbaAvailabilityGroup -SqlInstance $dbatools1 -AvailabilityGroup $AgNAme -Confirm:$false
 
-Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem | Remove-DbaDatabase -Confirm:$false 
+Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem | Remove-DbaDatabase -Confirm:$false
 
 # Let's see what databases we have available here
 Get-DbaDatabase -SqlInstance $dbatools1, $dbatools2 -ExcludeSystem | Select-Object SqlInstance, Name, Status, SizeMB
 Get-DbaAgentJob -SqlInstance $SQLInstances | Format-Table
 
-# Remember dbatools started as a migration script and Start-DbaMigration will migrate ALL OF THE THINGS from 
+# Remember dbatools started as a migration script and Start-DbaMigration will migrate ALL OF THE THINGS from
 # one instance to another
 
-Start-DbaMigration -Source $dbatools1 -Destination $dbatools2 -Verbose -BackupRestore -SharedPath '/shared' 
+Start-DbaMigration -Source $dbatools1 -Destination $dbatools2 -Verbose -BackupRestore -SharedPath '/shared'
 
 # lets reset all of that
 
-Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem | Remove-DbaDatabase -Confirm:$false 
+Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem | Remove-DbaDatabase -Confirm:$false
 
 Get-DbaLogin -SqlInstance $dbatools2 -ExcludeSystemLogin -Type SQL -ExcludeLogin '##MS_PolicyEventProcessingLogin##', '##MS_PolicyTsqlExecutionLogin##', 'sqladmin'  | Remove-DbaLogin -Confirm:$false
 
 Get-DbaXESession -SqlInstance $dbatools2 | ForEach-Object {
     Remove-DbaXESession  -SqlInstance $dbatools2 -Session $_.Name  -Confirm:$false
-} 
+}
 
 Get-DbaAgentOperator -SqlInstance $dbatools2 | Remove-DbaAgentOperator  -Confirm:$false
 
-Get-DbaAgentAlert -SqlInstance $dbatools2 | ForEach-Object { 
+Get-DbaAgentAlert -SqlInstance $dbatools2 | ForEach-Object {
     Remove-DbaAgentAlert -SqlInstance $dbatools2 -Alert $_.Name -Confirm:$false
 }
 
-Get-DbaAgentSchedule -SqlInstance $dbatools2 | ForEach-Object { 
+Get-DbaAgentSchedule -SqlInstance $dbatools2 | ForEach-Object {
     Remove-DbaAgentSchedule -SqlInstance $dbatools2 -Schedule $_.Name -Confirm:$false
 }
 
@@ -155,8 +155,5 @@ Invoke-DbaQuery -SqlInstance $dbatools2 -Database Pubs -Query 'select @@serverna
 
 # Compare these dates and orders
 $sourceSales, $destSales
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index

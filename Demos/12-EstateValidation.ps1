@@ -1,8 +1,8 @@
 <#
-_____    _        _         _   _       _ _     _       _   _             
-|  ___|  | |      | |       | | | |     | (_)   | |     | | (_)            
-| |__ ___| |_ __ _| |_ ___  | | | | __ _| |_  __| | __ _| |_ _  ___  _ __  
-|  __/ __| __/ _` | __/ _ \ | | | |/ _` | | |/ _` |/ _` | __| |/ _ \| '_ \ 
+_____    _        _         _   _       _ _     _       _   _
+|  ___|  | |      | |       | | | |     | (_)   | |     | | (_)
+| |__ ___| |_ __ _| |_ ___  | | | | __ _| |_  __| | __ _| |_ _  ___  _ __
+|  __/ __| __/ _` | __/ _ \ | | | |/ _` | | |/ _` |/ _` | __| |/ _ \| '_ \
 | |__\__ \ || (_| | ||  __/ \ \_/ / (_| | | | (_| | (_| | |_| | (_) | | | |
 \____/___/\__\__,_|\__\___|  \___/ \__,_|_|_|\__,_|\__,_|\__|_|\___/|_| |_|
 #>
@@ -19,9 +19,9 @@ cls
 
 # Install-Module dbachecks
 
-# You have a number of checks. These are unique - 
+# You have a number of checks. These are unique -
 # Yes or No, True or False, Passed or Failed
-# tests 
+# tests
 
 Get-DbcCheck
 
@@ -78,9 +78,9 @@ Invoke-DbcCheck -SqlInstance $dbatools1,$dbatools2 -Check FailedJob
 
 Invoke-DbcCheck -SqlInstance $dbatools1,$dbatools2 -Check InstanceConnection
 
-# oh look there are some failed
+# oh look there are some failed (NOT ANY MORE ROB - We fixed this)
 
-# we actually need to set our config 
+# we actually need to set our config
 
 Set-DbcConfig -Name policy.connection.authscheme -Value SQL
 
@@ -101,6 +101,12 @@ Invoke-DbcCheck -SqlInstance $dbatools1,$dbatools2 -Check InstanceConnection
 # one of my all time favourite checks
 
 Invoke-DbcCheck -SqlInstance $dbatools1,$dbatools2 -Check LastGoodCheckDb
+
+Get-DbaDatabase -SqlInstance $dbatools1,$dbatools2 |ForEach-Object {
+    # This is why we dont trust CoPilot!!
+# Invoke-DbaQuery -SqlInstance $_.SqlInstance -Query "USE $($_.Name); SELECT GETDATE() AS LastGoodCheckDb;"
+  Invoke-DbaQuery -SqlInstance $_.ComputerName -SqlCredential $continercredential -Query "DBCC CHECKDB ([$($_.Name)]) WITH MAXDOP = 1"
+}
 
 # but you can also use it to validate that your settings are correct
 
@@ -142,13 +148,13 @@ Invoke-DbcCheck -SqlInstance $dbatools1 -Tag CIS
 
 # So Tracey wrote a function to help
 
-Set-DbcCisConfig 
+Set-DbcCisConfig
 
 # and now we can do
 
 $CisChecks = Invoke-DbcCheck -SqlInstance $dbatools1 -Tag CIS -PassThru
 
-# Rob likes best to store these in a database, so whilst you can use Start-DbcPowerBi 
+# Rob likes best to store these in a database, so whilst you can use Start-DbcPowerBi
 # to open a PowerBi File which will use the natively stored json results that we do behind the scene
 
 # I like to do this
@@ -158,7 +164,8 @@ $CisChecks = Invoke-DbcCheck -SqlInstance $dbatools1 -Tag CIS -PassThru
 # Write-DbcTable will do two things
 # Create a lookup table with the latest checks and create two tables dbo.CheckResults and dbo.dbachecksChecks
 
-$CisChecks | Convert-DbcResult -Label CIS | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation 
+$CisChecks | Convert-DbcResult -Label CIS  -OutVariable convertedChecks
+$convertedChecks | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
 
 Get-DbaDbTable -SqlInstance $dbatools1 -Database Validation | Format-Table
 
@@ -170,8 +177,6 @@ Get-DbaDbTable -SqlInstance $dbatools1 -Database Validation | Format-Table
 # password dbatools.IO
 
 # Peek behind the scenes of these demos...
-
-Get-GameTimeRemaining
 
 # What else would you like to learn ?
 

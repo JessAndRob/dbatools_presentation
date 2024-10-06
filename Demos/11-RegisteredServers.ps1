@@ -1,12 +1,12 @@
 <#
-______           _     _                    _   _____                              
-| ___ \         (_)   | |                  | | /  ___|                             
-| |_/ /___  __ _ _ ___| |_ ___ _ __ ___  __| | \ `--.  ___ _ ____   _____ _ __ ___ 
+______           _     _                    _   _____
+| ___ \         (_)   | |                  | | /  ___|
+| |_/ /___  __ _ _ ___| |_ ___ _ __ ___  __| | \ `--.  ___ _ ____   _____ _ __ ___
 |    // _ \/ _` | / __| __/ _ \ '__/ _ \/ _` |  `--. \/ _ \ '__\ \ / / _ \ '__/ __|
 | |\ \  __/ (_| | \__ \ ||  __/ | |  __/ (_| | /\__/ /  __/ |   \ V /  __/ |  \__ \
 \_| \_\___|\__, |_|___/\__\___|_|  \___|\__,_| \____/ \___|_|    \_/ \___|_|  |___/
-            __/ |                                                                  
-           |___/                                                                   
+            __/ |
+           |___/
 #>
 
 cls
@@ -14,10 +14,10 @@ cls
 # What can we do with registered servers>
 Find-DbaCommand 'Registered Servers'
 
-Get-Command '*RegServer*' -Module dbatools 
+Get-Command '*RegServer*' -Module dbatools
 
 Get-Help Get-DbaRegServer -Detailed
-# Gets list of SQL Server objects stored in 
+# Gets list of SQL Server objects stored in
     # local registered groups
     # azure data studio
     # central management server
@@ -32,7 +32,7 @@ Get-DbaRegServer -SqlInstance $dbatools1
 # Get all registered server groups
 Get-DbaRegServerGroup -SqlInstance $dbatools1 | Format-Table
 
-# Get a specific group 
+# Get a specific group
 Get-DbaRegServerGroup -SqlInstance $dbatools1 -Group Test | Format-Table
 
 # Returns a SQL Server Registered Server Store Object
@@ -85,17 +85,17 @@ Get-DbaRegServerGroup -SqlInstance $dbatools1 | Format-Table
 
 
 # Now that we have registered servers in a group we can use them as a group
-Get-DbaRegServer -SqlInstance $dbatools1 -Group 'Production' 
+Get-DbaRegServer -SqlInstance $dbatools1 -Group 'Production'
 
 ## Broken on Linux - but would work for windows...
 
     # Get all the databases on the instances
-    Get-DbaRegServer -SqlInstance $dbatools1 -Group 'Production' | Get-DbaDatabase 
+    Get-DbaRegServer -SqlInstance $dbatools1 -Group 'Production' | Get-DbaDatabase
 
     # Make sure they are patched to the latest version
     Get-DbaRegServer -SqlInstance $dbatools1 -Group 'Production' | Test-DbaBuild -Latest
 
-# We can also move registered servers between groups 
+# We can also move registered servers between groups
 Move-DbaRegServer -SqlInstance $dbatools1 -Name dbatools1 -Group Test
 
 # We can also move groups - if we want to nest the Test-2022 group in the Test group
@@ -112,7 +112,7 @@ Copy-DbaRegServer -Source $dbatools1 -Destination $dbatools2
 Get-DbaRegServerGroup -SqlInstance $SQLInstances | Format-Table
 
 # Post migration we'll need to clean up the old server - dbatools1
-# Remove all registered servers 
+# Remove all registered servers
 Remove-DbaRegServer -SqlInstance $dbatools1 -Confirm:$false
 
 # Remove all groups too
@@ -126,10 +126,7 @@ Find-DbaInstance -ComputerName $SQLInstances -OutVariable discoveredInstances
 Get-Help Find-DbaInstance -Full | Out-String | code -
 
 $discoveredInstances.foreach{
-    Add-DbaRegServer -SqlInstance $dbatools1 -ServerName $psitem.SqlInstance 
+    Add-DbaRegServer -SqlInstance $dbatools1 -ServerName $psitem.SqlInstance
 }
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index
