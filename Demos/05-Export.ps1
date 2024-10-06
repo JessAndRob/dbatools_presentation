@@ -53,6 +53,11 @@ code $export.fullname
 # export into a source controlled folder & track changes
 $path = '.\SourceControl'
 
+# If it doesn't exist, create it
+if (-not (Test-Path $path)) {
+    New-Item $path -ItemType Directory
+}
+
 Get-ChildItem $path| Remove-Item -Recurse
 
 # Export
