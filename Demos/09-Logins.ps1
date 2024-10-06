@@ -343,11 +343,12 @@ Write-Output ""
 
 # run this in Windows Terminal to see the windows explorer view
 
+# THIS DEPENDS ON YOUR DOCKER SETUP
+# Easier option is to save it from the Docker Desktop
+# Robs is here (ish) explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
+# GUID diff\var\opt\mssql\data\backups\dbatools1
 # explorer \\wsl.localhost\docker-desktop-data\version-pack-data\community\docker\volumes\bitsdbatools_devcontainer_shared\_data
 
 # To AutoFit column width:CTRL A and then Alt + H, then O, and then I.
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index

@@ -239,6 +239,10 @@ explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay
 then find this path (diff guid obvs)
 
 a29b3685ce573c548b6d202e22a6e52b4158c2c75c973062a547aaeb5e3f17cb\diff\var\opt\mssql\data\backups\dbatools1
+
+or maybe
+\\wsl.localhost\docker-desktop\mnt\docker-desktop-disk\data\docker\overlay2
+
 #>
 
 # Remove the databases - no confirm this time
