@@ -50,8 +50,8 @@ ls -l -R /var/opt/mssql/data
 
 # now if we check the user databases last backup time
 
-Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem | 
-Select-Object Name, Status, LastFullBackup | 
+Get-DbaDatabase -SqlInstance $dbatools1 -ExcludeSystem |
+Select-Object Name, Status, LastFullBackup |
 Format-Table
 
 # or we could use
@@ -231,8 +231,10 @@ Get-ChildItem $RandomPath -Recurse
 <#
 # run this in Windows Terminal to see the windows explorer view
 
-#TODO: this didn't work for Jess (don't have the docker-desktop-data folder)
-explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\ 
+# It depends on how you have docker/Podman/systemd etc set up
+
+#this didn't work for Jess (don't have the docker-desktop-data folder)
+explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
 
 then find this path (diff guid obvs)
 
@@ -395,12 +397,17 @@ WHERE [Database] = 'corruptme'
 
 Invoke-DbaQuery -SqlInstance $dbatools1 -Database pubs -Query $Query
 
+# Let's clear up that corrupt DEMO database as we dont want to leave it lying around
+
+Remove-DbaDatabase -SqlInstance $dbatools1 -Database corruptme -Confirm:$false
+
 # You can just set this running as an agent job and run a report on the data or an alert when a corrupt database was found
 
 
 # Those were the simple ones - How complex do you want to get ?
 
 Get-Help Invoke-DbaAdvancedRestore
+
 
 Remove-Module dbatools -Force
 
