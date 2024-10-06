@@ -41,7 +41,7 @@ $AddAgDbConfig = @{
 }
 Add-DbaAgDatabase @AddAgDbConfig
 
-# POwerShell is not magic ;-)
+# PowerShell is not magic ;-)
 
 Backup-DbaDatabase -SqlInstance $dbatools1 -Database Northwind -Path /shared -Type Full
 Backup-DbaDatabase -SqlInstance $dbatools1 -Database Northwind -Path /shared -Type Log
@@ -179,7 +179,7 @@ Get-DbaLogin -SqlInstance $SQLInstances -ExcludeSystemLogin  | Format-Table
 
 Invoke-DbaAgFailover -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Force
 
-# SOmething weird with containers but we will Resume the Movement again
+# Something weird with containers but we will Resume the Movement again
 
 Resume-DbaAgDbDataMovement -SqlInstance $dbatools2 -AvailabilityGroup $AgName -Confirm:$false
 
