@@ -28,7 +28,10 @@
                 "github.vscode-pull-request-github",
                 "oderwat.indent-rainbow",
                 "mhutchie.git-graph",
-                "usernamehw.errorlens"
+                "usernamehw.errorlens",
+                "Gruntfuggly.todo-tree",
+                "streetsidesoftware.code-spell-checker",
+                "eamodio.gitlens"
             ]
         },
         "codespaces": {

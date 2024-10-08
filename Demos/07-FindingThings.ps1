@@ -1,12 +1,12 @@
 <#
-______ _           _ _               _____ _     _                 
-|  ___(_)         | (_)             |_   _| |   (_)                
-| |_   _ _ __   __| |_ _ __   __ _    | | | |__  _ _ __   __ _ ___ 
+______ _           _ _               _____ _     _
+|  ___(_)         | (_)             |_   _| |   (_)
+| |_   _ _ __   __| |_ _ __   __ _    | | | |__  _ _ __   __ _ ___
 |  _| | | '_ \ / _` | | '_ \ / _` |   | | | '_ \| | '_ \ / _` / __|
 | |   | | | | | (_| | | | | | (_| |   | | | | | | | | | | (_| \__ \
 \_|   |_|_| |_|\__,_|_|_| |_|\__, |   \_/ |_| |_|_|_| |_|\__, |___/
-                              __/ |                       __/ |    
-                             |___/                       |___/     
+                              __/ |                       __/ |
+                             |___/                       |___/
 #>
 
 cls
@@ -16,7 +16,7 @@ cls
 <#
     WE HAVE A P1 INCIDENT IN OUR DEMO ENVIRONMENT!!!!
 
-    Order details are mysteriously disappearing!!! 
+    Order details are mysteriously disappearing!!!
 
     We need to find what might be causing this!
 #>
@@ -38,7 +38,7 @@ Get-DbaDbStoredProcedure -SqlInstance $dbatools1 -Database Northwind | Where-Obj
 
 # There is more than meets the eye with a lot of the objects returned
 $FindMeSP
-$FindMeSP | Get-Member 
+$FindMeSP | Get-Member
 $FindMeSP | Format-List TextHeader, TextBody
 
 # WAIT - where did $FindMeSP come from Jess ?
@@ -49,7 +49,7 @@ $FindMeSP | Format-List TextHeader, TextBody
 Get-DbaDatabase -SqlInstance $dbatools1 -Database Northwind -OutVariable NorthwindDB
 
 # Again - there is more than meets the eye
-$NorthwindDB 
+$NorthwindDB
 $NorthwindDB | Get-Member
 
 # Database triggers
@@ -59,15 +59,15 @@ $NorthwindDB.Triggers
 Get-DbaDbTrigger -SqlInstance dbatools1 -Database Northwind
 
 # Functions
-$NorthwindDB.UserDefinedFunctions | 
-    Where-Object TextBody -like '*order details*' | 
-    Select-Object Name, TextHeader, TextBody | 
+$NorthwindDB.UserDefinedFunctions |
+    Where-Object TextBody -like '*order details*' |
+    Select-Object Name, TextHeader, TextBody |
     Format-List
 
 # What about table level triggers
 $NorthwindDB.Tables[0] | Get-Member
 
-$NorthwindDB.Tables.Where{$_.Name -eq 'order details'}.Triggers | 
+$NorthwindDB.Tables.Where{$_.Name -eq 'order details'}.Triggers |
     Select-Object Name, TextHeader, TextBody |
     Format-List
 
@@ -88,7 +88,4 @@ Find-DbaAgentJob -SqlInstance $SQLInstances -IsFailed
 # View why they failed
 Get-DbaAgentJobHistory -SqlInstance $dbatools2 -Job IamBroke
 
-# Choose your adventure
-Get-GameTimeRemaining
-
-Get-Index 
+Get-Index

@@ -33,6 +33,7 @@ Get-DbaRandomizedType -Pattern "Name"
 ## Generate data
 Get-DbaRandomizedValue -DataType int -Min 10000
 Get-DbaRandomizedValue -RandomizerType Name -RandomizerSubType FirstName -Local 'US'
+Get-DbaRandomizedValue -RandomizerType Name -RandomizerSubType FullName
 
 Get-DbaRandomizedValue -RandomizerType address -RandomizerSubType zipcode
 Get-DbaRandomizedValue -RandomizerType address -RandomizerSubType zipcode -Format '#####'
@@ -43,12 +44,13 @@ $maskConfig = @{
     SqlInstance   = $dbatools1
     Database      = 'Northwind'
     Table         = "Customers"
-    Column        = "Address", "PostalCode", "Phone" 
+    Column        = "ContactName", "Address", "PostalCode", "Phone" 
     Path          = ".\Masking\"
 }
 New-DbaDbMaskingConfig @maskConfig -OutVariable configFile
 
 ## Modify the file manually
+## look at the ContactName - change that to use Name.FullName
 code $configFile.FullName
 
 ## check your file - returns nothing if good - errors if errors
@@ -69,15 +71,12 @@ Invoke-DbaQuery -SqlInstance $dbatools1 -Database NorthWind -Query 'select top 5
 $maskData = @{
     SqlInstance   = $dbatools1
     Database      = 'Northwind'
-    FilePath      = '.\Masking\dbatools1.Northwind.DataMaskingConfig.json'
+    FilePath      = $configFile.FullName
     Confirm       = $false
 }
-Invoke-DbaDbDataMasking @maskData -verbose  -enableexception
+Invoke-DbaDbDataMasking @maskData -EnableException
 
 # View data after!
 Invoke-DbaQuery -SqlInstance $dbatools1 -Database NorthWind -Query 'select top 5 CustomerId, ContactName, Address, City, PostalCode, Phone from dbo.Customers order by CustomerId' | Format-Table
-
-# Choose your adventure
-Get-GameTimeRemaining
 
 Get-Index

@@ -1,12 +1,12 @@
-<# 
-  ___             _ _       _     _ _ _ _           _____                           
- / _ \           (_) |     | |   (_) (_) |         |  __ \                          
-/ /_\ \_   ____ _ _| | __ _| |__  _| |_| |_ _   _  | |  \/_ __ ___  _   _ _ __  ___ 
+<#
+  ___             _ _       _     _ _ _ _           _____
+ / _ \           (_) |     | |   (_) (_) |         |  __ \
+/ /_\ \_   ____ _ _| | __ _| |__  _| |_| |_ _   _  | |  \/_ __ ___  _   _ _ __  ___
 |  _  \ \ / / _` | | |/ _` | '_ \| | | | __| | | | | | __| '__/ _ \| | | | '_ \/ __|
 | | | |\ V / (_| | | | (_| | |_) | | | | |_| |_| | | |_\ \ | | (_) | |_| | |_) \__ \
 \_| |_/ \_/ \__,_|_|_|\__,_|_.__/|_|_|_|\__|\__, |  \____/_|  \___/ \__,_| .__/|___/
-                                             __/ |                       | |        
-                                            |___/                        |_|        
+                                             __/ |                       | |
+                                            |___/                        |_|
 #>
 
 cls
@@ -15,10 +15,10 @@ cls
 
 # Lets see how easy it is to create an Availability Group with dbatools - Open SSMS as well here and show the dashboard
 
-$AgName = 'NotOnHolidayNowAreYouJess' 
+$AgName = 'NotOnHolidayNowAreYouJess'
 $AvailabilityGroupConfig = @{
-    Name         = $AgName 
-    SharedPath   = '/var/opt/backups' 
+    Name         = $AgName
+    SharedPath   = '/var/opt/backups'
     Primary      = $dbatools1
     Secondary    = $dbatools2
     ClusterType  = 'None' # External. Wsfc
@@ -32,27 +32,27 @@ New-DbaAvailabilityGroup @AvailabilityGroupConfig
 # lets add a database to the Availability Group
 
 $AddAgDbConfig = @{
-    SqlInstance       = $dbatools1 
-    AvailabilityGroup = $AgName  
+    SqlInstance       = $dbatools1
+    AvailabilityGroup = $AgName
     Database          = 'NorthWind'
-    SeedingMode       = 'Automatic' 
-    SharedPath        = '/var/opt/backups' 
+    SeedingMode       = 'Automatic'
+    SharedPath        = '/var/opt/backups'
     Secondary         = $dbatools2
 }
 Add-DbaAgDatabase @AddAgDbConfig
 
-# POwerShell is not magic ;-)
+# PowerShell is not magic ;-)
 
 Backup-DbaDatabase -SqlInstance $dbatools1 -Database Northwind -Path /shared -Type Full
 Backup-DbaDatabase -SqlInstance $dbatools1 -Database Northwind -Path /shared -Type Log
 # lets add a database to the Availability Group
 
 $AddAgDbConfig = @{
-    SqlInstance       = $dbatools1 
-    AvailabilityGroup = $AgName  
+    SqlInstance       = $dbatools1
+    AvailabilityGroup = $AgName
     Database          = 'NorthWind'
-    SeedingMode       = 'Automatic' 
-    SharedPath        = '/var/opt/backups' 
+    SeedingMode       = 'Automatic'
+    SharedPath        = '/var/opt/backups'
     Secondary         = $dbatools2
 }
 Add-DbaAgDatabase @AddAgDbConfig
@@ -62,11 +62,11 @@ Add-DbaAgDatabase @AddAgDbConfig
 $databases = Get-DbaDatabase -SqlInstance $dbatools1  -ExcludeSystem -ExcludeDatabase pubs, NorthWind
 
 $AddAgDbConfig = @{
-    SqlInstance       = $dbatools1 
-    AvailabilityGroup = $AgName  
-    Database          = $databases.Name 
-    SeedingMode       = 'Automatic' 
-    SharedPath        = '/var/opt/backups' 
+    SqlInstance       = $dbatools1
+    AvailabilityGroup = $AgName
+    Database          = $databases.Name
+    SeedingMode       = 'Automatic'
+    SharedPath        = '/var/opt/backups'
     Secondary         = $dbatools2
 }
 Add-DbaAgDatabase @AddAgDbConfig
@@ -86,12 +86,12 @@ Get-DbaAgListener -SqlInstance $SQLInstances
 # Ah we don't have a listener - Lets fix that
 
 $ListenerConfig = @{
-    SqlInstance       = $dbatools1 
-    AvailabilityGroup = $AgName 
-    Name              = 'Maldives' 
-    IPAddress         = '172.22.0.4' 
-    SubnetMask        = '255.255.255.0' 
-    Port              = 54321 
+    SqlInstance       = $dbatools1
+    AvailabilityGroup = $AgName
+    Name              = 'Maldives'
+    IPAddress         = '172.22.0.4'
+    SubnetMask        = '255.255.255.0'
+    Port              = 54321
 }
 Add-DbaAgListener @ListenerConfig
 
@@ -106,7 +106,7 @@ Get-DbaAgReplica -SqlInstance $SQLInstances | Format-Table
 
 # You can even failover the Availability group
 
-Invoke-DbaAgFailover -SqlInstance $dbatools1 -AvailabilityGroup $AgName 
+Invoke-DbaAgFailover -SqlInstance $dbatools1 -AvailabilityGroup $AgName
 
 
 
@@ -138,9 +138,9 @@ Resume-DbaAgDbDataMovement -SqlInstance $dbatools1 -AvailabilityGroup $AgName
 
 Get-DbaAgDatabase -SqlInstance $SQLInstances | Format-Table
 
-# or suspend for a single database 
+# or suspend for a single database
 
-Suspend-DbaAgDbDataMovement -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Database pubs-7 
+Suspend-DbaAgDbDataMovement -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Database pubs-7
 
 # Look at the database status
 
@@ -148,7 +148,7 @@ Get-DbaAgDatabase -SqlInstance $SQLInstances | Format-Table
 
 # and as you would expect resume
 
-Resume-DbaAgDbDataMovement -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Database pubs-7 
+Resume-DbaAgDbDataMovement -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Database pubs-7
 
 # Keeping things in sync - this takes a minute to check all the things ;-)
 # We are doing a WhatIf so you can see what it would do
@@ -157,7 +157,7 @@ Sync-DbaAvailabilityGroup -Primary $dbatools2 -Secondary $dbatools1 -Availabilit
 
 # lets create a new login on our primary instance to fix a bug
 
-New-DbaLogin -SqlInstance $dbatools2 -Login arcade -SecurePassword $continercredential.Password -DefaultDatabase pubs-7 
+New-DbaLogin -SqlInstance $dbatools2 -Login arcade -SecurePassword $continercredential.Password -DefaultDatabase pubs-7
 
 # take a look at our Logins
 
@@ -165,7 +165,7 @@ Get-DbaLogin -SqlInstance $SQLInstances -ExcludeSystemLogin  | Format-Table
 
 # Lets sync our replicas - takes a few but worth it.
 
-Sync-DbaAvailabilityGroup -Primary $dbatools2 -Secondary $dbatools1 -AvailabilityGroup $AgName 
+Sync-DbaAvailabilityGroup -Primary $dbatools2 -Secondary $dbatools1 -AvailabilityGroup $AgName
 
 # take a look at our Logins
 
@@ -179,7 +179,7 @@ Get-DbaLogin -SqlInstance $SQLInstances -ExcludeSystemLogin  | Format-Table
 
 Invoke-DbaAgFailover -SqlInstance $dbatools1 -AvailabilityGroup $AgName -Force
 
-# SOmething weird with containers but we will Resume the Movement again
+# Something weird with containers but we will Resume the Movement again
 
 Resume-DbaAgDbDataMovement -SqlInstance $dbatools2 -AvailabilityGroup $AgName -Confirm:$false
 
@@ -191,7 +191,7 @@ Get-DbaAgDatabase -SqlInstance $SQLInstances | Format-Table
 
 # Lets sync our replicas
 
-Sync-DbaAvailabilityGroup -Primary $dbatools1 -Secondary $dbatools2 -AvailabilityGroup $AgName 
+Sync-DbaAvailabilityGroup -Primary $dbatools1 -Secondary $dbatools2 -AvailabilityGroup $AgName
 
 # take a look at our Logins
 
@@ -199,9 +199,6 @@ Get-DbaLogin -SqlInstance $SQLInstances -ExcludeSystemLogin  | Format-Table
 
 # We will show you Agent jobs syncing in the agent job chapter
 
-Get-DbaAgBackupHistory -SqlInstance $SQLInstances -AvailabilityGroup $AgName 
-
-# Choose your adventure
-Get-GameTimeRemaining
+Get-DbaAgBackupHistory -SqlInstance $SQLInstances -AvailabilityGroup $AgName
 
 Get-Index
