@@ -30,6 +30,13 @@
                 "mhutchie.git-graph",
                 "usernamehw.errorlens"
             ]
+        },
+        "codespaces": {
+            "repositories": {
+                "JessAndRob/Infra": {
+                    "permissions": "write-all"
+                }
+            }
         }
     },
     "shutdownAction": "stopCompose",
