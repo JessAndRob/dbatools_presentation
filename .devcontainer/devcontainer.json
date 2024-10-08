@@ -33,6 +33,13 @@
                 "streetsidesoftware.code-spell-checker",
                 "eamodio.gitlens"
             ]
+        },
+        "codespaces": {
+            "repositories": {
+                "JessAndRob/Infra": {
+                    "permissions": "write-all"
+                }
+            }
         }
     },
     "shutdownAction": "stopCompose",
