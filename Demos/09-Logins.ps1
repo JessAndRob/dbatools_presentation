@@ -53,7 +53,8 @@ Write-Output $Italwaysis
 #
 # You can do this with dbatools
 
-Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | Select LogDate, Source, Text
+Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | 
+Select-Object LogDate, Source, Text
 
 # but we can also use our T-SQL Knowledge and
 
@@ -101,13 +102,15 @@ Write-Output "Email has been sent"
 
 # Sure enough the user is back pretty quickly
 
-# CHeck the error log (if we were on windows we would do this)
+# Check the error log again
 
-Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | Select LogDate, Source, Text  | Format-List
+Get-DbaErrorLog -SqlInstance $dbatools1 -Text  Login | 
+Select-Object LogDate, Source, Text  | Format-List
 
-# but we are in a container so we use our T-SQL Knowledge and
+# or we use our T-SQL Knowledge and
 
-Invoke-DbaQuery -SqlInstance $dbatools1 -Database master -Query "EXEC sp_readerrorlog" | Where ProcessInfo -eq 'Logon'
+Invoke-DbaQuery -SqlInstance $dbatools1 -Database master -Query "EXEC sp_readerrorlog" | 
+Where-Object ProcessInfo -eq 'Logon'
 
 # Hmmm
 #
@@ -273,18 +276,18 @@ $Modules.ForEach{
 
 
 $ExcelDirectory = '/shared' # Alter this to the directory you want the file created
-$SQlinstance = $dbatools1  # Alter this for the SQL Instance you want to get permissions for
+$Sqlinstance = $dbatools1  # Alter this for the SQL Instance you want to get permissions for
 
-Write-Output "Processing $sqlinstance"
+Write-Output "Processing $Sqlinstance"
 
-$InstanceName = $SQlinstance.Split('\').Split('.').Split('\').Split(',') -join '_'
+$InstanceName = $Sqlinstance.Split('\').Split('.').Split('\').Split(',') -join '_'
 $ExcelFile = $ExcelDirectory + '\' + $InstanceName + '_Permissions_OneTab_' + (Get-Date).ToString('yyyy-MM-dd') + '.xlsx'
 
 Write-Output "    FileName is $ExcelFile"
 
 $WorkSheetName = "Permissions"
 
-$excel = Get-DbaUserPermission -SqlInstance $sqlinstance | Export-Excel -Path $ExcelFile -WorksheetName $WorkSheetName -AutoSize -FreezeTopRow -AutoFilter -PassThru
+$excel = Get-DbaUserPermission -SqlInstance $Sqlinstance | Export-Excel -Path $ExcelFile -WorksheetName $WorkSheetName -AutoSize -FreezeTopRow -AutoFilter -PassThru
 
 $rulesparam = @{
     Address   = $excel.Workbook.Worksheets[$WorkSheetName].Dimension.Address
@@ -345,9 +348,10 @@ Write-Output ""
 
 # THIS DEPENDS ON YOUR DOCKER SETUP
 # Easier option is to save it from the Docker Desktop
-# Robs is here (ish) explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
+# Robs is here (ish): explorer \\wsl.localhost\docker-desktop-data\mnt\wslg\distro\data\docker\overlay2\
 # GUID diff\var\opt\mssql\data\backups\dbatools1
 # explorer \\wsl.localhost\docker-desktop-data\version-pack-data\community\docker\volumes\bitsdbatools_devcontainer_shared\_data
+# Jess' is here (ish): explorer \\wsl.localhost\docker-desktop\tmp\docker-desktop-root\var\lib\docker\volumes\dbatools_presentation_devcontainer_shared\_data
 
 # To AutoFit column width:CTRL A and then Alt + H, then O, and then I.
 
