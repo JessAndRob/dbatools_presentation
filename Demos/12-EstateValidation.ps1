@@ -51,6 +51,7 @@ Get-DbcCheck -Pattern backup
 
 # Invoke-DbcCheck -SqlInstance SQLINSTANCE -Check UNIQUETAG, A TAG, GROUP
 
+#TODO: Rob does this work for you?
 Invoke-DbcCheck -SqlInstance $dbatools1 -Check LastBackup
 
 # checks are tab completable
