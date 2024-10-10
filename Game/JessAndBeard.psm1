@@ -233,7 +233,7 @@ function Get-Index {
       Write-PSFHostColor -String "we also need an app to run in the background" -DefaultColor Green
       Write-PSFHostColor -String "In a new session run Invoke-PubsApplication" -DefaultColor Green
     }
-    #even though you choose R
+    #even though you choose S
     11 {
       cls
       Write-Output "11 - Registered Servers"
@@ -254,25 +254,16 @@ function Get-Index {
 
       # Assert-Correct -chapter RegisterdServers
     }
-    # even though you choose G
-    14 {
-      cls
-      $Message = ' GREETINGS PROFESSOR FALKEN
-
-      HELLO
-
-      A STRANGE GAME.
-      THE ONLY WINNING MOVE IS NOT TO PLAY.
-
-      HOW ABOUT A NICE GAME OF CHESS?
-                                                                       '
-      Write-Host $message -BackgroundColor 03fcf4 -ForegroundColor Black
-    }
-    # even though you choose T
     13 {
-      Start-TicTacToe
+      Write-Output "13 - Replication"
+      code /workspace/Demos/13-Replication.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter Replication
     }
-    'q' {
+    # even though you choose R
+    14 {
       cls
     }
     Default {
@@ -333,7 +324,8 @@ function Assert-Correct {
       'Found',
       'Masking',
       'Logins',
-      'AdvMigration'
+      'AdvMigration',
+      'Replication'
     )]
     [string]
     $chapter = 'initial'
@@ -612,6 +604,33 @@ function Assert-Correct {
       Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
       $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
       $check3 | Convert-DbcResult -Label Logins -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+    }
+    'Replication' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label Replication -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label Replication -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label Replication -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
 
       $results = @($check1, $check2, $check3)
       Set-FailedTestMessage
