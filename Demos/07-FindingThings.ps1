@@ -88,4 +88,31 @@ Find-DbaAgentJob -SqlInstance $SQLInstances -IsFailed
 # View why they failed
 Get-DbaAgentJobHistory -SqlInstance $dbatools2 -Job IamBroke
 
+# Finally we can find user objects owned by a specific user
+$pattern = 'sqladmin'
+
+#Find objects owned by a specific user
+Find-DbaUserObject -SqlInstance dbatools1 -Pattern $pattern
+
+# Format as table
+Find-DbaUserObject -SqlInstance dbatools1 -Pattern $pattern | Format-Table
+
+# Output as Console GridView
+Find-DbaUserObject -SqlInstance dbatools1 -Pattern $pattern | Out-ConsoleGridView
+
+<#
+What will it search?
+    - Database Owner
+    - Agent Job Owner
+    - Used in Credential
+    - Used in Proxy
+    - SQL Agent Steps using a Proxy
+    - Endpoints
+    - Server Roles
+    - Database Schemas
+    - Database Roles
+    - Database Assembles
+    - Database Synonyms
+#>
+
 Get-Index

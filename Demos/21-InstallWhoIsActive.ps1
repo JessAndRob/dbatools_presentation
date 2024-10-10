@@ -1,11 +1,17 @@
-#########################################################
-#          dbatools: Wheel of Fortune                   #
-#          Demo: 3 - Deploy sp_WhoIsActive              #
-#          Host: Cláudio                                #
-#########################################################
+<#
+
+ __          ___    _  ____ _____  _____         _____ _______ _______      ________ 
+ \ \        / / |  | |/ __ \_   _|/ ____|  /\   / ____|__   __|_   _\ \    / /  ____|
+  \ \  /\  / /| |__| | |  | || | | (___   /  \ | |       | |    | |  \ \  / /| |__   
+   \ \/  \/ / |  __  | |  | || |  \___ \ / /\ \| |       | |    | |   \ \/ / |  __|  
+    \  /\  /  | |  | | |__| || |_ ____) / ____ \ |____   | |   _| |_   \  /  | |____ 
+     \/  \/   |_|  |_|\____/_____|_____/_/    \_\_____|  |_|  |_____|   \/   |______|
+
+
+#>
 
 # Deploy sp_whoIsActive across instances
-# NOTE: I wrote about it in my blog post: New version of sp_WhoIsActive (v11.20) is available – Deployed on 123 instances in less than 1 minute
+# NOTE: Our good friend Claudio wrote about it in my blog post: New version of sp_WhoIsActive (v11.20) is available – Deployed on 123 instances in less than 1 minute
 # https://claudioessilva.eu/2017/12/05/new-version-of-sp_whoisactive-v11-20-is-available-deployed-on-123-instances-in-less-than-1-minute/
 
 # Set variables
