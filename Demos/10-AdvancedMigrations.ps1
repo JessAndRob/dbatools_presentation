@@ -63,6 +63,7 @@ Get-DbaAgentJob -SqlInstance $dbatools2 | Remove-DbaAgentJob -Confirm:$false
 
 ##################################################################################
 # Jess - go start the application - otherwise this is going to be a bit boring...#
+# It's called Invoke-PubsApplication Jess - go open a terminal and run this      #
 ##################################################################################
 
 # Let's see what databases we have available here
@@ -92,7 +93,7 @@ Get-DbaDatabase -SqlInstance $dbatools1, $dbatools2 -ExcludeSystem | Select-Obje
 #################################
 ## DOWNTIME WINDOWS STARTS NOW ##
 #################################
-# App team will stop the app running...
+# App team will stop the app running... That's YOU JESS!
 
 # Activity hasn't stopped from our application
 # Get Processes
