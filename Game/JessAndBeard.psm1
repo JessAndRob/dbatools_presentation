@@ -355,10 +355,10 @@ function Get-Index {
       
       Assert-Correct -chapter ImportCSV
     }
-    #even though you choose K
+    #even though you choose L
     21 {
       Write-Output "21 - Install sp_WhoisActive"
-      code /workspace/Demos/21-Installsp_WhoisActive.ps1
+      code /workspace/Demos/21-InstallWhoIsActive.ps1
 
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       

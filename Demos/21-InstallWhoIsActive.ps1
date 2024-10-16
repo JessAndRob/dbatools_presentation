@@ -32,7 +32,7 @@ Remove-Item  '/root/.local/share/PowerShell/dbatools/WhoIsActive' -Recurse -Forc
 $deploySplat = @{
     SqlInstance = 'dbatools1', 'dbatools2'
     Database = $databaseToDeploy
-    LocalFile = "./demos/3/sp_WhoIsActive.sql"
+    LocalFile = "./demos/whoisactive/sp_WhoIsActive.sql"
 }
 # Without internet access but with a version saved on a local file
 Install-DbaWhoIsActive @deploySplat
@@ -40,5 +40,5 @@ Install-DbaWhoIsActive @deploySplat
 # You can use the dbatools Invoke-DbaWhoIsActive command to run the stored procedure
 Invoke-DbaWhoIsActive -SqlInstance dbatools1 -ShowOwnSpid
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
