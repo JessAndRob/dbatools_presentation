@@ -20,7 +20,7 @@ Test-DbaBuild -SqlInstance dbatools1, dbatools2 -Latest | Format-Table
 Test-DbaBuild -SqlInstance dbatools1 -MaxBehind 1CU
 
 # Example when compliant
-Test-DbaBuild -SqlInstance dbatools1 -MaxBehind 8CU
+Test-DbaBuild -SqlInstance dbatools1 -MaxBehind 10CU
 
 #Example using more specific versions
 $mapping = @{
@@ -46,7 +46,7 @@ $results = Test-DbaBuild -SqlInstance dbatools1, dbatools2 -Latest
 $results | Export-Excel -Path $excelFilePath -TableName "data" -TableStyle Medium10
 
 # open from the cloned folder  on the windows side
-# e.g. C:\GitHub\dbatools-wheeloffortune\export 
+# e.g. C:\GitHub\dbatools_presentation\export 
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
