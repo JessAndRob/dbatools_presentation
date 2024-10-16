@@ -7,8 +7,6 @@
  | |____ / . \| |___| |____| |__| |  | |  | |____   ____) | |____| | \ \ _| |_| |      | |  ____) |
  |______/_/ \_\______\_____|\____/   |_|  |______| |_____/ \_____|_|  \_\_____|_|      |_| |_____/ 
 
-
-
 #>
 
 $folderPath = './export/'
@@ -23,6 +21,9 @@ $destinationDatabase = 'PubsV2'
 # create the output path if it doesn't exist
 if (!(Test-Path $folderPath)) {
     $null = New-Item -Path $folderPath -ItemType Directory
+} else {
+    #if it exists, remove all files
+    Get-ChildItem $folderPath *.sql | Remove-Item
 }
 
 # Export create statements for tables
@@ -55,11 +56,18 @@ New-DbaDatabase @splatCreate
 ###############################
 
 (Get-ChildItem $folderPath *.sql).Foreach{
+    Write-PSFMessage -Level Output -Message ('executing {0}' -f $_.FullName) -FunctionName ExecuteScripts
     Invoke-DbaQuery -SqlInstance $SqlInstance -Database $destinationDatabase -File $psitem.FullName
 }
+
+# prove it worked
+Get-DbaDbTable -SqlInstance $SqlInstance -Database $destinationDatabase | Select-Object Schema, Name
 
 # clean up files
 Get-ChildItem $folderPath *.sql | Remove-Item
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# remove the database
+Remove-DbaDatabase -SqlInstance $SqlInstance -Database $destinationDatabase -Confirm:$false
+
+# What shall we learn next?
+Get-Index
