@@ -38,9 +38,9 @@ Invoke-DbaQuery @splatInvokeQuery | Format-Table
 
 
 # Not impressed? 
-# Let's check with a file that contains 200K rows
+# Let's check with a file that contains 200K+ rows
 
-$csvPathBigger = "./demos/20/authors_bigger.csv"
+$csvPathBigger = "./demos/csv/authors_bigger.csv"
 
 $splatImportCSV = @{
 	SqlInstance = "dbatools1"
@@ -52,10 +52,18 @@ $splatImportCSV = @{
 }
 Import-DbaCsv @splatImportCSV
 
+$splatInvokeQuery = @{
+	SqlInstance = "dbatools1"
+	Database = $database
+	Query = "SELECT COUNT(1) FROM [$table-2]"
+}
+Invoke-DbaQuery @splatInvokeQuery
+
 #NOTE:
 # I suggest that you create the table with the datatypes that better match your data.
 # By default columns will be created as VARCHAR(MAX).
 
 
-# reset and get ready to spin!
-Invoke-DemoReset
+
+# What shall we learn next?
+Get-Index
