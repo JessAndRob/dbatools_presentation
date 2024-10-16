@@ -10,10 +10,10 @@
 
 #>
 
-$databaseToRefresh = "ToTestRefresh"
+$databaseToRefresh = "Pubs"
 
 # Connect as PRODLogin to 'dbatools1' to see the "PROD" data
-$cred_PROD = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "PRODLogin", $securePassword
+$cred_PROD = New-Object -TypeName System.Management.Automation.PSCredential -ArgumentList "SqlAdmin", $securePassword
 Invoke-DbaQuery -SqlInstance dbatools1 -SqlCredential $cred_PROD -Database $databaseToRefresh -Query "SELECT SUSER_NAME() AS UserName, * FROM dbo.TestTable"
 
 
@@ -71,9 +71,5 @@ $cred_QA = New-Object -TypeName System.Management.Automation.PSCredential -Argum
 Invoke-DbaQuery -SqlInstance dbatools2 -SqlCredential $cred_QA -Database $databaseToRefresh -Query "SELECT SUSER_NAME() AS UserName, * FROM dbo.TestTable"
 
 
-
-
-
-
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
