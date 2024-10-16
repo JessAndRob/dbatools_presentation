@@ -328,3 +328,5 @@ Disable-DbaReplDistributor -SqlInstance  mssql1
 Get-DbaReplServer -SqlInstance mssql1
 
 #regionend
+
+Get-Index
