@@ -2,12 +2,19 @@
 
 $dbatoolsIntro = @"
 
-██████╗ ██████╗  █████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗    ██╗███╗   ██╗████████╗██████╗  ██████╗ ██████╗ ██╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗
-██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝    ██║████╗  ██║╚══██╔══╝██╔══██╗██╔═══██╗██╔══██╗██║   ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║
-██║  ██║██████╔╝███████║   ██║   ██║   ██║██║   ██║██║     ███████╗    ██║██╔██╗ ██║   ██║   ██████╔╝██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██╔██╗ ██║
-██║  ██║██╔══██╗██╔══██║   ██║   ██║   ██║██║   ██║██║     ╚════██║    ██║██║╚██╗██║   ██║   ██╔══██╗██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██║╚██╗██║
-██████╔╝██████╔╝██║  ██║   ██║   ╚██████╔╝╚██████╔╝███████╗███████║    ██║██║ ╚████║   ██║   ██║  ██║╚██████╔╝██████╔╝╚██████╔╝╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║
-╚═════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝    ╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
+██████╗ ██████╗  █████╗ ████████╗ ██████╗  ██████╗ ██╗     ███████╗    
+██╔══██╗██╔══██╗██╔══██╗╚══██╔══╝██╔═══██╗██╔═══██╗██║     ██╔════╝    
+██║  ██║██████╔╝███████║   ██║   ██║   ██║██║   ██║██║     ███████╗    
+██║  ██║██╔══██╗██╔══██║   ██║   ██║   ██║██║   ██║██║     ╚════██║    
+██████╔╝██████╔╝██║  ██║   ██║   ╚██████╔╝╚██████╔╝███████╗███████║    
+╚═════╝ ╚═════╝ ╚═╝  ╚═╝   ╚═╝    ╚═════╝  ╚═════╝ ╚══════╝╚══════╝    
+
+██╗███╗   ██╗████████╗██████╗  ██████╗ ██████╗ ██╗   ██╗ ██████╗████████╗██╗ ██████╗ ███╗   ██╗
+██║████╗  ██║╚══██╔══╝██╔══██╗██╔═══██╗██╔══██╗██║   ██║██╔════╝╚══██╔══╝██║██╔═══██╗████╗  ██║
+██║██╔██╗ ██║   ██║   ██████╔╝██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██╔██╗ ██║
+██║██║╚██╗██║   ██║   ██╔══██╗██║   ██║██║  ██║██║   ██║██║        ██║   ██║██║   ██║██║╚██╗██║
+██║██║ ╚████║   ██║   ██║  ██║╚██████╔╝██████╔╝╚██████╔╝╚██████╗   ██║   ██║╚██████╔╝██║ ╚████║
+╚═╝╚═╝  ╚═══╝   ╚═╝   ╚═╝  ╚═╝ ╚═════╝ ╚═════╝  ╚═════╝  ╚═════╝   ╚═╝   ╚═╝ ╚═════╝ ╚═╝  ╚═══╝
 
 "@
 
@@ -137,10 +144,18 @@ function Get-Index {
     ("&7 - Finding Things", "7 - Finding Things"),
     ("&8 - Data Masking", "8 - Data Masking"),
     ("&9 - Logins", "9 - Logins"),
-    ("&M - Advanced Migrations", "10 - Advanced Migrations"),
-    ("&S - Registered Servers", "11 - Registered Servers"),
+    ("&A - Advanced Migrations", "10 - Advanced Migrations"),
+    ("&B - Registered Servers", "11 - Registered Servers"),
     ("&C - Estate Validation", "12 - Estate Validation"),
-    ("&R - Replication", "13 - Replication"),
+    ("&D - Replication", "13 - Replication"),
+    ("&E - PSHTMLReport", "14 - PSHTML Report"),
+    ("&F - Execute Folder Of Scripts", "15 - Execute Folder Of Scripts"),
+    ("&G - Refresh Database", "16 - Refresh Database"),
+    ("&H - Test SQL Versions", "17 - Test SQL Versions"),
+    ("&I - Copy Data", "18 - Copy Data"),
+    ("&J - Truncate All Tables", "19 - Truncate All Tables"),
+    ("&K - Import CSV Data", "20 - Import CSV Data"),
+    ("&L - Install sp_WhoisActive", "21 - Install sp_WhoisActiveInstall sp_WhoisActive"),
     ("&Q - Quit", "Quit")
   )
 
@@ -219,7 +234,7 @@ function Get-Index {
       Assert-Correct -chapter Logins
 
     }
-    #even though you choose M
+    #even though you choose A
     10 {
       cls
       Write-Output "10 - Advanced Migrations"
@@ -233,7 +248,7 @@ function Get-Index {
       Write-PSFHostColor -String "we also need an app to run in the background" -DefaultColor Green
       Write-PSFHostColor -String "In a new session run Invoke-PubsApplication" -DefaultColor Green
     }
-    #even though you choose S
+    #even though you choose B
     11 {
       cls
       Write-Output "11 - Registered Servers"
@@ -249,11 +264,12 @@ function Get-Index {
       cls
       Write-Output "12 - Estate Validation"
       code /workspace/Demos/12-EstateValidation.ps1
-
+      
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
-
+      
       # Assert-Correct -chapter RegisterdServers
     }
+    #even though you choose D
     13 {
       Write-Output "13 - Replication"
       code /workspace/Demos/13-Replication.ps1
@@ -262,7 +278,79 @@ function Get-Index {
       
       Assert-Correct -chapter Replication
     }
-    # even though you choose R
+    #even though you choose E
+    14 {
+      Write-Output "14 - PSHTML Report"
+      code /workspace/Demos/14-PSHTMLReport.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter PSHTML
+    }
+    #even though you choose F
+    15 {
+      Write-Output "15 - Execute Folder Of Scripts"
+      code /workspace/Demos/15-ExecuteFolderOfScripts.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter Execute
+    }
+    #even though you choose G
+    16 {
+      Write-Output "16 - Refresh Database"
+      code /workspace/Demos/16-RefreshDatabase.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter Refresh
+    }
+    #even though you choose H
+    17 {
+      Write-Output "17 - Test SQL Versions"
+      code /workspace/Demos/17-TestSQLVersions.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter TestVersions
+    }
+    #even though you choose I
+    18 {
+      Write-Output "18 - Copy Data"
+      code /workspace/Demos/18-CopyData.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter CopyData
+    }
+    #even though you choose J
+    19 {
+      Write-Output "19 - Truncate All Tables"
+      code /workspace/Demos/19-TruncateAllTables.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter Truncate
+    }
+    #even though you choose K
+    20 {
+      Write-Output "20 - Import CSV Data"
+      code /workspace/Demos/20-ImportCSVData.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter ImportCSV
+    }
+    #even though you choose K
+    21 {
+      Write-Output "21 - Install sp_WhoisActive"
+      code /workspace/Demos/21-Installsp_WhoisActive.ps1
+
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      
+      Assert-Correct -chapter InstallWhoIsActive
+    }
+    # even though you choose Q
     14 {
       cls
     }
@@ -325,7 +413,15 @@ function Assert-Correct {
       'Masking',
       'Logins',
       'AdvMigration',
-      'Replication'
+      'Replication',
+      'PSHTML',
+      'Execute',
+      'Refresh',
+      'TestVersions',
+      'CopyData',
+      'Truncate',
+      'ImportCSV',
+      'InstallWhoIsActive'
     )]
     [string]
     $chapter = 'initial'
@@ -636,6 +732,230 @@ function Assert-Correct {
       Set-FailedTestMessage
       Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+    }
+    'PSHTML' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'Execute' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'Refresh' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'TestVersions' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'CopyData' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'Truncate' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'ImportCSV' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
+    }
+    'InstallWhoIsActive' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      Set-DbcConfig -Name app.checkrepos -Value '/workspace/Demos/dbachecksconfigs' -Append | Out-Null
+      $null = Set-DbcConfig -Name app.sqlinstance -Value $containers
+      $null = Set-DbcConfig -Name policy.connection.authscheme -Value 'SQL'
+      $null = Set-DbcConfig -Name skip.connection.remoting -Value $true
+      $check1 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection -Show Summary -PassThru
+      $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
+      $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+
+      Set-DbcConfig -Name app.sqlinstance -Value 'dbatools1' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'Northwind', 'pubs', 'tempdb' | Out-Null
+      $check3 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists, DatabaseStatus -Show Summary -PassThru
+      $check3 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
+      
+      $results = @($check1, $check2, $check3)
+      Set-FailedTestMessage
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false
+
     }
     Default {
       # Valid estate is as we expect
