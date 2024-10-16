@@ -31,7 +31,8 @@
                 "usernamehw.errorlens",
                 "Gruntfuggly.todo-tree",
                 "streetsidesoftware.code-spell-checker",
-                "eamodio.gitlens"
+                "eamodio.gitlens",
+                "george-alisson.html-preview-vscode"
             ]
         },
         "codespaces": {
