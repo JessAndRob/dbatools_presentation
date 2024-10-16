@@ -61,5 +61,5 @@ Invoke-DbaQuery -SqlInstance $svr -Database $database -File ('{0}\CreateObjects.
 # Clear up the script files
 Remove-Item ('{0}\DropObjects.Sql' -f $tempFolder), ('{0}\CreateObjects.Sql' -f $tempFolder)
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
