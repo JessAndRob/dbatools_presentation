@@ -281,6 +281,8 @@ function Get-Index {
     #even though you choose E
     14 {
       Write-Output "14 - PSHTML Report"
+      Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
+      Install-Module PSHTML
       code /workspace/Demos/14-PSHTMLReport.ps1
 
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
@@ -299,6 +301,18 @@ function Get-Index {
     #even though you choose G
     16 {
       Write-Output "16 - Refresh Database"
+
+      $null = Invoke-DbaQuery -SqlInstance dbatools1 -SqlCredential $continercredential -Database Pubs -Query "CREATE TABLE dbo.TestTable (ID int PRIMARY KEY IDENTITY(1,1), col1 varchar(50), insertedDate datetime2 default getdate());"
+      $null = Copy-DbaDatabase -Source dbatools1 -SourceSqlCredential $continercredential -Destination dbatools2 -DestinationSqlCredential $continercredential -Database Pubs -BackupRestore -SharedPath /shared -WithReplace
+
+      $securePassword = ('dbatools.IO' | ConvertTo-SecureString -asPlainText -Force)
+
+      $null = New-DbaLogin -SqlInstance dbatools2 -SqlCredential $continercredential -Login QALogin -SecurePassword $securePassword
+      $null = New-DbaDbUser -SqlInstance dbatools2 -SqlCredential $continercredential -Database Pubs -Login QALogin -Username QALogin
+      $null = Add-DbaDbRoleMember -SqlInstance dbatools2 -SqlCredential $continercredential -Database Pubs -User QALogin -Role db_owner -Confirm:$false
+      
+      Invoke-DbaQuery -SqlInstance dbatools1 -SqlCredential $continercredential -Database Pubs -Query "INSERT INTO dbo.TestTable (col1) values ('test data'),('more test data');"
+      
       code /workspace/Demos/16-RefreshDatabase.ps1
 
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
@@ -802,7 +816,7 @@ function Assert-Correct {
       $check1 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
 
       Set-DbcConfig -Name app.sqlinstance -Value 'dbatools2' | Out-Null
-      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb' | Out-Null
+      Set-DbcConfig -Name database.exists -Value 'master', 'model', 'msdb', 'tempdb', 'pubs' | Out-Null
       $check2 = Invoke-DbcCheck -SqlCredential $continercredential -Check InstanceConnection, DatabaseExists -Show Summary -PassThru
       $check2 | Convert-DbcResult -Label PSHTML -warningaction SilentlyContinue | Write-DbcTable -SqlInstance $dbatools1 -SqlCredential $continercredential  -Database Validation
 
