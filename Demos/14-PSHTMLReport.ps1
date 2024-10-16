@@ -8,10 +8,8 @@
  |_|    |_____/|_|  |_|  |_|  |_|  |_|______| |_|  \_\______|_|     \____/|_|  \_\ |_| |_____/ 
 
 
-
 #>
 
-                                                                                              
 ## Using PSHTML to create great looking email reports
 ## Blog post with more information: https://jesspomfret.com/pshtml-email-reports
 
@@ -20,6 +18,19 @@
 # $emailFrom = 'reports@jesspomfret.com'
 # $emailSubject = ('Authors: {0}' -f (get-date -f yyyy-MM-dd))
 # $smtpServer = 'smtp.server.address'
+
+# PSHTML is a DSL for creating HTML in PowerShell
+
+# for example, this will create a simple heading
+h1 'this is a heading'
+
+ul {
+    1..5 | foreach {
+        li "this is list item $_"
+    }
+}
+
+# Lets combine with some data from a query
 
 ## Query details
 $sqlInstance = 'dbatools1'
@@ -118,6 +129,8 @@ if ($results) {
    # }
 }
 
+# lets see what we have created
+code ./Export/test.HTML
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
