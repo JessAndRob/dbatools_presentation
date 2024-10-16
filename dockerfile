@@ -28,7 +28,7 @@ RUN $ErrorActionPreference='Stop';Set-PSRepository -Name PSGallery -Installation
 
 # Install dbatools,PSFramework,dbachecks,posh-git,ImportExcel, Pansies
 SHELL ["/usr/bin/pwsh", "-c"]
-RUN $ErrorActionPreference='Stop';Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name dbatools,PSFramework,dbachecks,posh-git,Microsoft.PowerShell.ConsoleGuiTools,ImportExcel,Pansies -Force -SkipPublisherCheck;
+RUN $ErrorActionPreference='Stop';Set-PSRepository -Name PSGallery -InstallationPolicy Trusted; Install-Module -Name dbatools,PSFramework,dbachecks,posh-git,Microsoft.PowerShell.ConsoleGuiTools,ImportExcel,Pansies,PSHTML -Force -SkipPublisherCheck;
 
 # Copy Profile
 
