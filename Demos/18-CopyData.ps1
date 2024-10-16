@@ -20,7 +20,7 @@ New-DbaDatabase -SqlInstance dbatools2 -Name $destinationDB
 # Check table's content on source
 Invoke-DbaQuery -SqlInstance dbatools1 -Database $sourceDB -Query "SELECT TOP 10 * FROM $table" | Format-Table
 
-# Prove the destination table is does not exists
+# Prove the destination table does not exist
 Invoke-DbaQuery -SqlInstance dbatools2 -Database $destinationDB -Query "SELECT TOP 10 * FROM $table" | Format-Table
 
 
@@ -72,5 +72,5 @@ Copy-DbaDbTableData @copySplat
 #Confirm that data is there
 Invoke-DbaQuery -SqlInstance dbatools2 -Database $destinationDB -Query "SELECT * FROM [dbo].[CopyOf_Order Details]" | Format-Table
 
-# reset and get ready to spin!
-Invoke-DemoReset
+# What shall we learn next?
+Get-Index
