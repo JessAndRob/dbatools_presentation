@@ -179,7 +179,7 @@ Compare-SPConfig -Source $dbatools1 -Destination $dbatools2
 
 ## ALL OF THE THINGS
 
-Find-DbaCommand -Pattern Copy | ocgv
+Find-DbaCommand -Pattern Copy | Select-Object Name, Description, Synopsis | ocgv
 
 Get-DbaLogin -SqlInstance $dbatools1,$dbatools2|Format-Table
 
