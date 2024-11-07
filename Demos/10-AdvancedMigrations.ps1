@@ -11,6 +11,10 @@
 
 cls
 
+###################################################
+## Go start the application so this isn't boring ##
+###################################################
+
 # Now we can show some of the other destructive commands :-)
 $Databases = Get-DbaDatabase -SqlInstance $dbatools2 -ExcludeSystem
 
