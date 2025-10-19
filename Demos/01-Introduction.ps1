@@ -20,7 +20,7 @@ Return 'Oi Beardy, You may be an MVP but this is a demo, don''t run the whole th
 ## Lets look at the commands
 Get-Command -Module dbatools
 
-## How many commands?
+## How many commands? 
 (Get-Command -Module dbatools).Count
 
 ## How do we find commands?

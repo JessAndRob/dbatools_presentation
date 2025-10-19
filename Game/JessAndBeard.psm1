@@ -135,27 +135,28 @@ function Get-Index {
   cls
   Write-Output $ChooseaTopic
   $gameChapters = @(
-    ("&1 - Introduction to dbatools", "1 - Introduction to dbatools"),
-    ("&2 - Backup and Restore", "2 - Backup and Restore"),
-    ("&3 - Copy Copy Copy", "3 - Copy Copy Copy"),
-    ("&4 - Snapshots", "4 - Snapshots"),
-    ("&5 - Export", "5 - Export"),
-    ("&6 - Availability Groups", "6 - Availability Groups"),
-    ("&7 - Finding Things", "7 - Finding Things"),
-    ("&8 - Data Masking", "8 - Data Masking"),
-    ("&9 - Logins", "9 - Logins"),
-    ("&A - Advanced Migrations", "10 - Advanced Migrations"),
-    ("&B - Registered Servers", "11 - Registered Servers"),
-    ("&C - Estate Validation", "12 - Estate Validation"),
-    ("&D - Replication", "13 - Replication"),
-    ("&E - PSHTMLReport", "14 - PSHTML Report"),
-    ("&F - Execute Folder Of Scripts", "15 - Execute Folder Of Scripts"),
-    ("&G - Refresh Database", "16 - Refresh Database"),
-    ("&H - Test SQL Versions", "17 - Test SQL Versions"),
-    ("&I - Copy Data", "18 - Copy Data"),
-    ("&J - Truncate All Tables", "19 - Truncate All Tables"),
-    ("&K - Import CSV Data", "20 - Import CSV Data"),
-    ("&L - Install sp_WhoisActive", "21 - Install sp_WhoisActiveInstall sp_WhoisActive"),
+    ("&1 - Introduction to PowerShell", "1 - Introduction to PowerShell"),
+    ("&2 - Introduction to dbatools", "2 - Introduction to dbatools"),
+    ("&3 - Backup and Restore", "3 - Backup and Restore"),
+    ("&4 - Copy Copy Copy", "4 - Copy Copy Copy"),
+    ("&5 - Snapshots", "5 - Snapshots"),
+    ("&6 - Export", "6 - Export"),
+    ("&7 - Availability Groups", "7 - Availability Groups"),
+    ("&8 - Finding Things", "8 - Finding Things"),
+    ("&9 - Data Masking", "9 - Data Masking"),
+    ("&A - Logins", "10 - Logins"),
+    ("&B - Advanced Migrations", "11 - Advanced Migrations"),
+    ("&C - Registered Servers", "12 - Registered Servers"),
+    ("&D - Estate Validation", "13 - Estate Validation"),
+    ("&E - Replication", "14 - Replication"),
+    ("&F - PSHTMLReport", "15 - PSHTML Report"),
+    ("&G - Execute Folder Of Scripts", "16 - Execute Folder Of Scripts"),
+    ("&H - Refresh Database", "17 - Refresh Database"),
+    ("&I - Test SQL Versions", "18 - Test SQL Versions"),
+    ("&J - Copy Data", "19 - Copy Data"),
+    ("&K - Truncate All Tables", "20 - Truncate All Tables"),
+    ("&L - Import CSV Data", "21 - Import CSV Data"),
+    ("&M - Install sp_WhoisActive", "22 - Install sp_WhoisActiveInstall sp_WhoisActive"),
     ("&Q - Quit", "Quit")
   )
 
@@ -169,10 +170,12 @@ function Get-Index {
   $title = "If you would be so kind as to"
   $IndexChoice = $host.ui.PromptForChoice($title, "choose an option", $options, 0) + 1
 
+  write-host ('Index choice was {0}' -f $indexChoice)
+
   switch ($IndexChoice) {
     1 {
       cls
-      code /workspace/Demos/01-introduction.ps1
+      code /workspace/Demos/00-IntroToPowerShell.ps1
       #reset and run tests
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter intro
@@ -180,19 +183,27 @@ function Get-Index {
     }
     2 {
       cls
+      code /workspace/Demos/01-introduction.ps1
+      #reset and run tests
+      Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
+      Assert-Correct -chapter intro
+
+    }
+    3 {
+      cls
       code /workspace/Demos/02-BackUpRestore.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Backup
 
     }
-    3 {
+    4 {
       cls
       code /workspace/Demos/03-CopyCopy.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Copy
 
     }
-    4 {
+    5 {
       cls
       code /workspace/Demos/04-Snapshots.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
@@ -206,36 +217,38 @@ function Get-Index {
       Assert-Correct -chapter Ags
 
     }
-    5 {
+    7 {
       cls
       code /workspace/Demos/05-Export.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Export
 
     }
-    7 {
+    8 {
       cls
       code /workspace/Demos/07-FindingThings.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Found
 
     }
-    8 {
+    9 {
       cls
       code /workspace/Demos/08-DataMasking.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Masking
 
     }
-    9 {
+    #even though you choose A
+
+    10 {
       cls
       code /workspace/Demos/09-Logins.ps1
       Write-PSFHostColor -String "Just ensuring that all is well with Pester" -DefaultColor Blue
       Assert-Correct -chapter Logins
 
     }
-    #even though you choose A
-    10 {
+    #even though you choose B
+    11 {
       cls
       Write-Output "10 - Advanced Migrations"
       code /workspace/Demos/10-AdvancedMigrations.ps1
@@ -248,8 +261,8 @@ function Get-Index {
       Write-PSFHostColor -String "we also need an app to run in the background" -DefaultColor Green
       Write-PSFHostColor -String "In a new session run Invoke-PubsApplication" -DefaultColor Green
     }
-    #even though you choose B
-    11 {
+    #even though you choose C
+    12 {
       cls
       Write-Output "11 - Registered Servers"
       code /workspace/Demos/11-RegisteredServers.ps1
@@ -259,8 +272,8 @@ function Get-Index {
       # Assert-Correct -chapter RegisterdServers
 
     }
-    #even though you choose C
-    12 {
+    #even though you choose D
+    13 {
       cls
       Write-Output "12 - Estate Validation"
       code /workspace/Demos/12-EstateValidation.ps1
@@ -269,8 +282,8 @@ function Get-Index {
       
       # Assert-Correct -chapter RegisterdServers
     }
-    #even though you choose D
-    13 {
+    #even though you choose E
+    14 {
       Write-Output "13 - Replication"
       code /workspace/Demos/13-Replication.ps1
 
@@ -278,8 +291,8 @@ function Get-Index {
       
       Assert-Correct -chapter Replication
     }
-    #even though you choose E
-    14 {
+    #even though you choose F
+    15 {
       Write-Output "14 - PSHTML Report"
       Set-PSRepository -Name PSGallery -InstallationPolicy Trusted
       Install-Module PSHTML
@@ -289,8 +302,8 @@ function Get-Index {
       
       Assert-Correct -chapter PSHTML
     }
-    #even though you choose F
-    15 {
+    #even though you choose G
+    16 {
       Write-Output "15 - Execute Folder Of Scripts"
       code /workspace/Demos/15-ExecuteFolderOfScripts.ps1
 
@@ -298,8 +311,8 @@ function Get-Index {
       
       Assert-Correct -chapter Execute
     }
-    #even though you choose G
-    16 {
+    #even though you choose H
+    17 {
       Write-Output "16 - Refresh Database"
 
       $null = Invoke-DbaQuery -SqlInstance dbatools1 -SqlCredential $continercredential -Database Pubs -Query "CREATE TABLE dbo.TestTable (ID int PRIMARY KEY IDENTITY(1,1), col1 varchar(50), insertedDate datetime2 default getdate());"
@@ -319,8 +332,8 @@ function Get-Index {
       
       Assert-Correct -chapter Refresh
     }
-    #even though you choose H
-    17 {
+    #even though you choose I
+    18 {
       Write-Output "17 - Test SQL Versions"
       code /workspace/Demos/17-TestSQLVersions.ps1
 
@@ -328,8 +341,8 @@ function Get-Index {
       
       Assert-Correct -chapter TestVersions
     }
-    #even though you choose I
-    18 {
+    #even though you choose J
+    19 {
       Write-Output "18 - Copy Data"
       code /workspace/Demos/18-CopyData.ps1
 
@@ -337,8 +350,8 @@ function Get-Index {
       
       Assert-Correct -chapter CopyData
     }
-    #even though you choose J
-    19 {
+    #even though you choose K
+    20 {
       Write-Output "19 - Truncate All Tables"
       code /workspace/Demos/19-TruncateAllTables.ps1
 
@@ -346,8 +359,8 @@ function Get-Index {
       
       Assert-Correct -chapter Truncate
     }
-    #even though you choose K
-    20 {
+    #even though you choose L
+    21 {
       Write-Output "20 - Import CSV Data"
       code /workspace/Demos/20-ImportCSVData.ps1
 
@@ -355,8 +368,8 @@ function Get-Index {
       
       Assert-Correct -chapter ImportCSV
     }
-    #even though you choose L
-    21 {
+    #even though you choose M
+    22 {
       Write-Output "21 - Install sp_WhoisActive"
       code /workspace/Demos/21-InstallWhoIsActive.ps1
 
@@ -365,7 +378,7 @@ function Get-Index {
       Assert-Correct -chapter InstallWhoIsActive
     }
     # even though you choose Q
-    14 {
+    23 {
       cls
     }
     Default {
@@ -417,6 +430,7 @@ function Assert-Correct {
     [Parameter()]
     [ValidateSet(
       'initial',
+      'powershell',
       'Intro' ,
       'Backup',
       'Copy',
@@ -460,6 +474,15 @@ function Assert-Correct {
       Set-DbcConfig -Name database.exists -Value 'pubs', 'NorthWind' -Append
       Invoke-DbcCheck -SqlCredential $continercredential -Check DatabaseExists
 
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false  # reset
+      Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
+    }
+    'powershell' {
+      # Valid estate is as we expect
+
+      $null = Reset-DbcConfig
+      $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $true  # so we dont get silly output from convert-dbcresult
+      
       $null = Set-PSFConfig -FullName PSFramework.Message.ConsoleOutput.Disable -value $false  # reset
       Write-PSFHostColor -String "All the test have finished look above" -DefaultColor Blue
     }
